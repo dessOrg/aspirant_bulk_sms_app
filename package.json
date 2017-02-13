@@ -1,0 +1,61 @@
+{
+  "name": "aspirant_bulk_sms_app",
+  "version": "1.0.0",
+  "description": "Aspirant web App",
+  "main": "server.js",
+  "authors": [
+    "Desmond Korir <desshub95@gmail.com>"
+  ],
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec",
+    "start": "npm install && rm -rf .tmp/ && nodemon -e css,html,js server.js -L",
+    "dev": "npm install && rm -rf .tmp/ & ./bin/nodedev server & ./bin/grunt watch"
+  },
+  "author": "Desmond",
+  "license": "ISC",
+  "dependencies": {
+    "base64url": "^2.0.0",
+    "bcrypt": "^0.8.7",
+    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "busboy": "^0.2.13",
+    "connect-flash": "*",
+    "connect-mongo": "^1.3.2",
+    "cookie-parser": "^1.4.3",
+    "cropit": "^0.5.1",
+    "dotenv": "^2.0.0",
+    "ejs": "^2.4.2",
+    "ejs-locals": "^1.0.2",
+    "express": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "faker": "^3.1.0",
+    "foundation-sites": "^6.2.3",
+    "gm": "^1.22.0",
+    "grunt": "^1.0.1",
+    "gs": "0.0.2",
+    "mongodb": "*",
+    "mongoose": "*",
+    "morgan": "^1.7.0",
+    "multer": "^1.1.0",
+    "nodemon": "^1.9.2",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "query-string": "^4.2.2",
+    "url": "^0.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dessOrg/aspirant_bulk_sms_app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dessOrg/aspirant_bulk_sms_app/issues"
+  },
+  "homepage": "https://github.com/dessOrg/aspirant_bulk_sms_app#README",
+  "devDependencies": {
+    "nodemon": "^1.9.2"
+  }
+}

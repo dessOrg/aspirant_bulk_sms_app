@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<% include ../partials/admin-head %>
+<body>
+    <div id="wrapper">
+        <% include ../partials/admin-nav %>
+           <!-- /. NAV TOP  -->
+                <% include ../partials/admin-side %>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                     <h2>Rooms Registration Form</h2>
+
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+               <div class="row">
+                <div class="col-md-12">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Register New Room:
+                        </div>
+                        <div class="panel-body">
+                          <form method="post" action="/uploads" enctype="multipart/form-data">
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label>Room No:</label>
+                                            <input class="form-control" type="text" name="room_no" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Plot No:</label>
+                                            <input class="form-control" type="text" name="plot_no" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Room Type:</label>
+                                            <input class="form-control" type="text" name="room_type" />
+                                        </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label>Location:</label>
+                                      <input class="form-control" type="text" name="location" />
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Room Image:</label>
+                                      <input type="file" name="image" />
+                                  </div>
+
+
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-offset-4 col-lg-6">
+                              <input class="btn btn-success" type="submit" value="Save">
+                              <input class="btn btn-primary" type="submit" value="Reset">
+                            </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                     <!-- End Form Elements -->
+                </div>
+            </div>
+
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <% include ../partials/admin-scripts %>
+
+
+</body>
+</html>
