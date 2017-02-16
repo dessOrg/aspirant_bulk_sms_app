@@ -5,59 +5,41 @@
     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 </li>
 
-
+   <% if(user.role == "admin") { %>
     <li>
         <a class="active-menu"  href="/admin"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
     </li>
      <li>
-        <a  href="ui.html"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>
+        <a  href="/text"><i class="fa fa-desktop fa-3x"></i> Generate Text</a>
     </li>
-    <li>
-        <a  href="tab-panel.html"><i class="fa fa-qrcode fa-3x"></i> Tabs & Panels</a>
-    </li>
-<li  >
-        <a   href="/chart"><i class="fa fa-bar-chart-o fa-3x"></i> Morris Charts</a>
+
+   <li  >
+        <a   href="/admin/chart"><i class="fa fa-bar-chart-o fa-3x"></i> Charts</a>
     </li>
       <li  >
-        <a  href="/table"><i class="fa fa-table fa-3x"></i> Table Examples</a>
+        <a  href="/admin/table"><i class="fa fa-table fa-3x"></i> Users</a>
     </li>
-    <li  >
-        <a  href="/form"><i class="fa fa-edit fa-3x"></i> Room Reg Form </a>
-    </li>
-    
 
+    <% }else{ %>
 
     <li>
-        <a href="#"><i class="fa fa-sitemap fa-3x"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
-        <ul class="nav nav-second-level">
-            <li>
-                <a href="#">Second Level Link</a>
-            </li>
-            <li>
-                <a href="#">Second Level Link</a>
-            </li>
-            <li>
-                <a href="#">Second Level Link<span class="fa arrow"></span></a>
-                <ul class="nav nav-third-level">
-                    <li>
-                        <a href="#">Third Level Link</a>
-                    </li>
-                    <li>
-                        <a href="#">Third Level Link</a>
-                    </li>
-                    <li>
-                        <a href="#">Third Level Link</a>
-                    </li>
-
-                </ul>
-
-            </li>
-        </ul>
-      </li>
-  <li  >
-        <a  href="blank.html"><i class="fa fa-square-o fa-3x"></i> Blank Page</a>
+        <a class="active-menu"  href="/dashboard"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
     </li>
-</ul>
+     <li>
+        <a  href="/text"><i class="fa fa-desktop fa-3x"></i> Generate Text</a>
+    </li>
+<li  >
+        <a   href="/chart"><i class="fa fa-bar-chart-o fa-3x"></i> Charts</a>
+    </li>
+      <li  >
+        <a  href="/table"><i class="fa fa-table fa-3x"></i> Contacts</a>
+    </li>
+    <li  >
+        <a  href="/form"><i class="fa fa-edit fa-3x"></i> Create Contacts </a>
+    </li>
+     <% } %>
+
+  </ul>
 
 </div>
 

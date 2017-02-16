@@ -31,6 +31,9 @@ app.use(express.static(__dirname + '/assets'));
 app.use('/uploads', express.static('uploads'));
 app.use('/pictures', express.static('pictures'));
 app.use('/', express.static(__dirname + '/assets/'));
+app.use('/form', express.static(__dirname + '/assets/'));
+app.use('/admin/signup', express.static(__dirname + '/assets/'));
+app.use('/admin/', express.static(__dirname + '/assets/'));
 
 
 //use ejs-localsfor ejs template
@@ -90,6 +93,10 @@ app.use(function(req, res, next){
 //routes middleware
 require('./app/routes/index.js')(app);
 require('./app/routes/auth.js')(app);
+require('./app/routes/contact.js')(app);
+require('./app/routes/sms.js')(app);
+require('./app/routes/admin.js')(app);
+
 
 app.set('port',(process.env.PORT || 8000));
 app.listen(app.get('port'),function(){

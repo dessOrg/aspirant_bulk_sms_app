@@ -17,136 +17,14 @@
                     </div>
                     <div class="panel-body">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#home" data-toggle="tab">Rooms</a>
-                            </li>
-                            <li class=""><a href="#profile" data-toggle="tab">Tenants</a>
-                            </li>
-                            <li class=""><a href="#messages" data-toggle="tab">Landlords</a>
-                            </li>
-                            <li class=""><a href="#settings" data-toggle="tab">Agents</a>
-                            </li>
+
+                            <li class="active"><a href="#contacts" data-toggle="tab">Contacts</a></li>
                         </ul>
 
                         <div class="tab-content">
-                            <div class="tab-pane fade active in" id="home">
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <!-- Advanced Tables -->
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4>Rooms Tab</h4>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div class="table-responsive">
-                                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>#</th>
-                                                                <th>Type</th>
-                                                                <th>Room No</th>
-                                                                <th>Plot No</th>
-                                                                <th>Location</th>
-                                                                <th>Image</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
 
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <!--End Advanced Tables -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="profile">
-
-                                <!-- /. ROW  -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                  <!--   Kitchen Sink -->
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4>Tenants Tab</h4>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>First Name</th>
-                                                            <th>Last Name</th>
-                                                            <th>Username</th>
-                                                            <th>Email</th>
-                                                            <th>Phone No</th>
-                                                            <th>Residence</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                     <!-- End  Kitchen Sink -->
-                                </div>
-                              </div>
-                            </div>
-                            <div class="tab-pane fade" id="messages">
-
-                                <div class="row">
-                                <div class="col-md-12">
-                                     <!--   Basic Table  -->
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4>Landlords Tab</h4>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>First Name</th>
-                                                            <th>Last Name</th>
-                                                            <th>Username</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Mark</td>
-                                                            <td>Otto</td>
-                                                            <td>@mdo</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>Jacob</td>
-                                                            <td>Thornton</td>
-                                                            <td>@fat</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                      <!-- End  Basic Table  -->
-                                </div>
-                            </div>
-                                <!-- /. ROW  -->
-                            </div>
-                            <div class="tab-pane fade" id="settings">
+                            <div class="tab-pane fade active in" id="contacts">
 
                                 <div class="row">
                                 <div class="col-md-12">
@@ -154,7 +32,7 @@
                                     <div class="panel panel-default">
 
                                         <div class="panel-heading">
-                                            <h4>Agents Tab</h4>
+                                            <h4>Contacts Tab</h4>
                                         </div>
 
                                         <div class="panel-body">
@@ -165,34 +43,18 @@
                                                             <th>#</th>
                                                             <th>First Name</th>
                                                             <th>Last Name</th>
-                                                            <th>Username</th>
+                                                            <th>Mobile No</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                      <% for(i=0; i<contacts.length; i++) { %>
                                                         <tr class="success">
-                                                            <td>1</td>
-                                                            <td>Mark</td>
-                                                            <td>Otto</td>
-                                                            <td>@mdo</td>
+                                                            <td><%= i+1 %></td>
+                                                            <td><%= contacts[i].firstname %></td>
+                                                            <td><%= contacts[i].lastname %></td>
+                                                            <td><%= contacts[i].phoneno %></td>
                                                         </tr>
-                                                        <tr class="info">
-                                                            <td>2</td>
-                                                            <td>Jacob</td>
-                                                            <td>Thornton</td>
-                                                            <td>@fat</td>
-                                                        </tr>
-                                                        <tr class="warning">
-                                                            <td>3</td>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
-                                                        </tr>
-                                                        <tr class="danger">
-                                                            <td>4</td>
-                                                            <td>John</td>
-                                                            <td>Smith</td>
-                                                            <td>@jsmith</td>
-                                                        </tr>
+                                                       <% } %>
                                                     </tbody>
                                                 </table>
                                             </div>

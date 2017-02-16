@@ -1,4 +1,5 @@
 var User = require('../models/user');
+var Contact = require('../models/contacts');
 
 module.exports = function(app) {
 
@@ -9,7 +10,11 @@ module.exports = function(app) {
 
   app.get("/dashboard", isLoggedIn, function(req, res) {
 
-      res.render("dashboard/index.ejs");
+     Contact.find({user:req.user}, function(err, contact){
+       var count = contact.length;
+       res.render("dashboard/index.ejs", {contacts:count});
+     })
+
     })
 
     app.get("/chart", isLoggedIn, function(req, res) {
@@ -17,16 +22,13 @@ module.exports = function(app) {
     })
 
     app.get("/form", isLoggedIn, function(req, res) {
-      res.render("dashboard/form.ejs");
+      var messages = ''
+      res.render("dashboard/form.ejs" );
     })
 
 
-    app.get("/table",isLoggedIn, function(req, res) {
-
-        res.render("dashboard/table.ejs");
 
 
-    })
 
 }
 

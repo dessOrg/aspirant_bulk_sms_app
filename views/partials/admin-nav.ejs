@@ -6,10 +6,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
+        <% if( user.role == "admin") { %>
         <a class="navbar-brand" href="/admin">Admin Dashboard</a>
+        <% }else{ %>
+        <a class="navbar-brand" href="/dashboard"><%= user.firstname %> Dashboard</a>
+          <% } %>
     </div>
 <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="/logout" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+font-size: 16px;"><%= user.username %>&nbsp;&nbsp;  Tokens: 40 &nbsp; <a href="/logout" class="btn btn-danger square-btn-adjust">Logout</a> </div>
 </nav>

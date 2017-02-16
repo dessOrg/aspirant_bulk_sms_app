@@ -2352,6 +2352,11 @@ input[type="reset"].btn-block,
 input[type="button"].btn-block {
   width: 100%;
 }
+div.required .control-label:before {
+	content: '* ';
+	color: #F00;
+	font-weight: bold;
+}
 .fade {
   opacity: 0;
   -webkit-transition: opacity .15s linear;
