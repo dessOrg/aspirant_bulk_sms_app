@@ -13,62 +13,33 @@
                     <div class="col-md-12">
                       <div class="panel panel-default">
                           <div class="panel-heading">
-                              <h2>Tables</h2>
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <h2>Campaign Portal</h2>
+                                </div>
+                                <div class="col-md-4">
+                                  <% if (success_msg){ %>
+                                    <div data-alert class="alert-box alert success radius" style="color : green">
+                                      <%= success_msg %>
+                                      <a href="#" class="close">&times;</a>
+                                    </div>
+                                  <% } if (error_msg){ %>
+                                    <div data-alert class="alert-box warning radius" style="color : red">
+                                      <%= error_msg %>
+                                      <a href="#" class="close">&times;</a>
+                                    </div>
+                                  <% } %>
+                                </div>
+                                <div class="col-md-4">
+                                  <br>
+                                 <a class="btn btn-primary" data-toggle="modal" data-target="#text" >Create New Campaign</a>
+                                </div>
+                                </div>
+
                           </div>
                           <div class="panel-body">
-                              <ul class="nav nav-tabs">
 
-                                  <li class="active"><a href="#contacts" data-toggle="tab">Generate Text</a></li>
-                                  <li class=""><a href="#view" data-toggle="tab">Draft Texts</a></li>
-                              </ul>
-
-                              <div class="tab-content">
-
-                                     <!-- Tab Content -->
-                                  <div class="tab-pane fade active in" id="contacts">
-
-                                      <div class="row">
-
-                                      <div class="col-md-12">
-                                           <!--    Context Classes  -->
-                                           <!-- Form Elements -->
-                                           <div class="panel panel-default">
-                                               <div class="panel-heading">
-                                                   Type SMS to be send:
-                                               </div>
-                                               <div class="panel-body">
-                                                 <div class="row">
-                                                   <div class="col-md-2"></div>
-                                                 <div class="col-md-6">
-                                                 <form method="post" action="/text/new" >
-                                                   <div class="row">
-                                                       <div class="col-md-12">
-                                                         <div class="form-group">
-                                                             <label>Text Area</label>
-                                                             <textarea name="sms" class="form-control" rows="3" required="true"></textarea>
-                                                         </div>
-                                                       </div>
-                                                   </div>
-                                                   <div class="row">
-                                                     <div class="col-lg-offset-4 col-lg-6">
-                                                     <input class="btn btn-success" type="submit" value="Save">
-                                                     <input class="btn btn-primary" type="reset" value="Reset">
-                                                   </div>
-                                                   </div>
-                                                   </form>
-                                                   </div>
-                                                   </div>
-                                               </div>
-                                           </div>
-                                            <!-- End Form Elements -->
-                                          <!--  end  Context Classes  -->
-                                      </div>
-                                  </div>
-                                      <!-- /. ROW  -->
-                                  </div>
-                                 <!-- End of Tab -->
-                                 <!-- Tab Content -->
-                              <div class="tab-pane fade " id="view">
+                             <!-- Tab Content -->
 
                                   <div class="row">
                                   <div class="col-md-12">
@@ -93,6 +64,7 @@
                                                    <div class="col-md-6">
                                                      <a href="/user/sms/<%=bulks[i].id %>" class="btn btn-success">Send</a>
                                                    <a class="btn btn-primary" data-toggle="modal" data-target="#<%= bulks[i].id %>" >Update</a>
+                                                   <a href="/delete/sms/<%=bulks[i].id %>" class="btn btn-danger">Delete</a>
                                                  </div>
 
 
@@ -104,14 +76,36 @@
                                         <!-- End Form Elements -->
                                       <!--  end  Context Classes  -->
                                   </div>
-                              </div>
-                                  <!-- /. ROW  -->
-                              </div>
+
                              <!-- End of Tab -->
 
                               </div>
                           </div>
                       </div>
+
+                      <!-- /. ROW  -->
+                      <div class="modal fade" id="text" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <form id="contact-form" method="POST" action="/text/new">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">New Campaign</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                              <div class="form-group">
+                                                  <textarea name="sms" class="form-control" rows="3" placeholder="Should contain aspirant name e.g James Bond mca aspirant mtaa ward invites you to his campaign launching at Mtaa grounds" required="true"></textarea>
+                                              </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Create</button>
+                                            </div>
+                                          </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- modal ends  -->
 
                     </div>
                 </div>

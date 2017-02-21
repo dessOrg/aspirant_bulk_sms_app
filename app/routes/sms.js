@@ -18,8 +18,6 @@ module.exports = function(app){
     var user = req.user;
     var sms = req.body.sms;
 
-    var messages = '';
-
       var bulk = new Bulk();
            bulk.user = user;
            bulk.sms = sms;
@@ -27,8 +25,8 @@ module.exports = function(app){
          bulk.save(function(err, bulk){
            if (err) return err;
 
-           console.log(bulk)
-           messages = "Contact Created Successfully";
+           console.log(bulk);
+           req.flash('success_msg', 'Campaign Successfully  Created');
            res.redirect('/text')
          })
 
@@ -38,16 +36,14 @@ module.exports = function(app){
    var id = req.params.id;
    var sms = req.body.sms;
 
-   var messages = '';
-
      var bulk = new Bulk();
           bulk._id = id;
 
         bulk.update({sms:sms}, function(err, bulk){
           if (err) return err;
 
-          console.log(bulk)
-          messages = "Sms updated Successfully";
+          console.log(bulk);
+          req.flash('success_msg', 'Campaign Successfully  updated');
           res.redirect('/text')
         })
 
@@ -155,7 +151,9 @@ module.exports = function(app){
                             })
 
                         } else {
-                            console.log('Error while sending: ' + jsObject.SMSMessageData.Message);
+                             var error = 'Error while sending: ' + jsObject.SMSMessageData.Message;
+                            console.log(error);
+                            req.flash('error_msg', error);
                     }
 
 

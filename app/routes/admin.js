@@ -1,6 +1,5 @@
 var User = require('../models/user');
 var Log = require('../models/logs');
-var Token = require('../models/tokens_logs');
 var Order = require('../models/orders');
 var Balance = require('../models/tokens');
 

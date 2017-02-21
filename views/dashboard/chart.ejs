@@ -11,65 +11,86 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>Morris Charts</h2>
-                        <h5>Welcome Jhon Deo , Love to see you back. </h5>
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <h2>Campaign History</h2>
+                                </div>
+                                <div class="col-md-4">
+
+                                </div>
+                                <div class="col-md-4">
+                                  <br>
+                                 <a class="btn btn-primary" href="/text" >Start New Campaign</a>
+                                </div>
+                                </div>
+
+                          </div>
+                          <div class="panel-body">
+
+                             <!-- Tab Content -->
+
+                                  <div class="row">
+                                  <div class="col-md-12">
+                                       <!--    Context Classes  -->
+                                       <!-- Form Elements -->
+                                       <div class="panel panel-default">
+                                           <div class="panel-heading">
+
+                                           </div>
+                                           <div class="panel-body">
+                                               <div class="table-responsive">
+                                                 <% if(logs.length==0){ %>
+                                                   <h2 style="color:green">You have 0 History. <a href="/text">Start New Campaign</a> </h2>
+                                                 <% }else{ %>
+                                                   <table class="table">
+                                                       <thead>
+                                                           <tr>
+                                                               <th>#</th>
+                                                               <th>Date</th>
+                                                               <th>Campaign</th>
+                                                               <th>Cost</th>
+                                                               <th>Mobile No</th>
+                                                               <th>Status</th>
+                                                           </tr>
+                                                       </thead>
+                                                       <tbody>
+
+                                                         <% for(i=0; i<logs.length; i++) { %>
+                                                           <tr class="success">
+                                                               <td><%= i+1 %></td>
+                                                               <td><%= logs[i].date %></td>
+                                                               <td><%= logs[i].sms %></td>
+                                                               <td><%= logs[i].cost %></td>
+                                                               <td><%= logs[i].number %></td>
+                                                               <td><%= logs[i].status %></td>
+                                                           </tr>
+                                                          <% } %>
+
+                                                       </tbody>
+                                                   </table>
+                                                   <% } %>
+                                               </div>
+                                           </div>
+
+                                       </div>
+                                        <!-- End Form Elements -->
+                                      <!--  end  Context Classes  -->
+                                  </div>
+
+                             <!-- End of Tab -->
+
+                              </div>
+                          </div>
+                      </div>
+
+
 
                     </div>
                 </div>
                  <!-- /. ROW  -->
-                 <hr />
 
-                <div class="row">
-
-
-                               <div class="col-md-6 col-sm-12 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Bar Chart Example
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-bar-chart"></div>
-                        </div>
-                    </div>
-                </div>
-                      <div class="col-md-6 col-sm-12 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Area Chart Example
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-area-chart"></div>
-                        </div>
-                    </div>
-                </div>
-
-           </div>
-                 <!-- /. ROW  -->
-                <div class="row">
-
-                               <div class="col-md-6 col-sm-12 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Donut Chart Example
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-donut-chart"></div>
-                        </div>
-                    </div>
-                </div>
-                      <div class="col-md-6 col-sm-12 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Line Chart Example
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-line-chart"></div>
-                        </div>
-                    </div>
-                </div>
-
-           </div>
-                 <!-- /. ROW  -->
     </div>
              <!-- /. PAGE INNER  -->
             </div>

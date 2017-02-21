@@ -81,9 +81,15 @@ module.exports = function(app) {
                     if(err) return err;
                     console.log(req.user);
 
+                    var phone = '';
+                    for(i=0; i<user.length; i++){
+                      phone = user[i].phoneno;
+                    }
+
                     var tokens = 5;
                     var balance = new Balance();
                     balance.tokens = tokens;
+                    balance.phoneno = phone;
                     balance.user = req.user;
 
                     balance.save(function(err, token){

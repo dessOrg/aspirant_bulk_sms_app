@@ -6,6 +6,9 @@ var balanceSchema = mongoose.Schema({
   tokens : {
     type :  String
   },
+  phoneno : {
+    type :  String
+  },
   user :{
     type : Schema.Types.ObjectId, ref: "User",
     unique: "true"

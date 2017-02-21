@@ -11,12 +11,13 @@ module.exports = function(app){
      console.log(req.body.firstname)
     var messages = '';
 
-    Contact.find({phoneno:phoneno, user:user}, function(err, contact){
+    Contact.find({user:user, phoneno:phoneno }, function(err, contact){
       if(err) return err;
-      if(contact){
+      if(contact.length>0){
         console.log(contact)
-        res.redirect('/form')
-      }
+        req.flash("error_msg", "Phone No already exist")
+        res.redirect('/table')
+      }else{
       var contact = new Contact();
            contact.user = user;
            contact.firstname = firstname;
@@ -26,11 +27,11 @@ module.exports = function(app){
          contact.save(function(err, contact){
            if (err) return err;
 
-           console.log(contact)
-           messages = "Contact Created Successfully";
-           res.render('dashboard/form.ejs')
+           console.log(contact);
+           req.flash("success_msg", "Contact Created Successfully")
+           res.redirect('/table')
          })
-
+       }
     })
 
  })

@@ -18,12 +18,10 @@
                     <% if (success_msg){ %>
                       <div data-alert class="alert-box alert success radius" style="color : green">
                         <%= success_msg %>
-                        <a href="#" class="close">&times;</a>
                       </div>
-                    <% } else if (err_msg){ %>
-                      <div data-alert class="alert-box warning radius">
-                        <%= err_msg %>
-                        <a href="#" class="close">&times;</a>
+                    <% } if (error_msg){ %>
+                      <div data-alert class="alert-box warning radius" style="color : red">
+                        <%= error_msg %>
                       </div>
                     <% } %>
 

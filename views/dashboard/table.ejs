@@ -8,84 +8,129 @@
                 <% include ../partials/admin-side %>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
-        <div id="page-inner">
-           <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2>Tables</h2>
-                    </div>
-                    <div class="panel-body">
-                        <ul class="nav nav-tabs">
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <h2>Campaign Portal</h2>
+                                </div>
+                                <div class="col-md-4">
+                                  <% if (success_msg){ %>
+                                    <div data-alert class="alert-box alert success radius" style="color : green">
+                                      <%= success_msg %>
+                                    </div>
+                                  <% } if (error_msg) { %>
+                                    <div data-alert class="alert-box warning radius" style="color : red">
+                                      <%= error_msg %>
 
-                            <li class="active"><a href="#contacts" data-toggle="tab">Contacts</a></li>
-                        </ul>
+                                    </div>
+                                  <% } %>
+                                </div>
+                                <div class="col-md-4">
+                                  <br>
+                                 <a class="btn btn-primary" data-toggle="modal" data-target="#text" >Create New Contacts</a>
+                                </div>
+                                </div>
 
-                        <div class="tab-content">
+                          </div>
+                          <div class="panel-body">
 
+                             <!-- Tab Content -->
 
-                            <div class="tab-pane fade active in" id="contacts">
+                                  <div class="row">
+                                  <div class="col-md-12">
+                                       <!--    Context Classes  -->
+                                       <!-- Form Elements -->
+                                       <div class="panel panel-default">
+                                           <div class="panel-heading">
 
-                                <div class="row">
-                                <div class="col-md-12">
-                                     <!--    Context Classes  -->
-                                    <div class="panel panel-default">
+                                           </div>
+                                           <div class="panel-body">
+                                               <div class="table-responsive">
+                                                 <% if(contacts.length==0){ %>
+                                                   <h2 style="color:green">You have 0 Contacts. Create Contacts to proceed</h2>
+                                                 <% }else{ %>
+                                                   <table class="table">
+                                                       <thead>
+                                                           <tr>
+                                                               <th>#</th>
+                                                               <th>First Name</th>
+                                                               <th>Last Name</th>
+                                                               <th>Mobile No</th>
+                                                           </tr>
+                                                       </thead>
+                                                       <tbody>
 
-                                        <div class="panel-heading">
-                                            <h4>Contacts Tab</h4>
-                                        </div>
+                                                         <% for(i=0; i<contacts.length; i++) { %>
+                                                           <tr class="success">
+                                                               <td><%= i+1 %></td>
+                                                               <td><%= contacts[i].firstname %></td>
+                                                               <td><%= contacts[i].lastname %></td>
+                                                               <td><%= contacts[i].phoneno %></td>
+                                                           </tr>
+                                                          <% } %>
 
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                              <% if(contacts.length==0){ %>
-                                                <h2 style="color:green">You have 0 Contacts. Create Contacts <a href="/form">Here</a> to proceed</h2>
-                                              <% }else{ %>
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>First Name</th>
-                                                            <th>Last Name</th>
-                                                            <th>Mobile No</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
+                                                       </tbody>
+                                                   </table>
+                                                   <% } %>
+                                               </div>
+                                           </div>
 
-                                                      <% for(i=0; i<contacts.length; i++) { %>
-                                                        <tr class="success">
-                                                            <td><%= i+1 %></td>
-                                                            <td><%= contacts[i].firstname %></td>
-                                                            <td><%= contacts[i].lastname %></td>
-                                                            <td><%= contacts[i].phoneno %></td>
-                                                        </tr>
-                                                       <% } %>
+                                       </div>
+                                        <!-- End Form Elements -->
+                                      <!--  end  Context Classes  -->
+                                  </div>
 
-                                                    </tbody>
-                                                </table>
-                                                <% } %>
-                                            </div>
+                             <!-- End of Tab -->
+
+                              </div>
+                          </div>
+                      </div>
+
+                      <!-- /. ROW  -->
+                      <div class="modal fade" id="text" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <form id="contact-form" method="POST" action="/contact/new">
+                                              <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                  <h4 class="modal-title" id="myModalLabel">Create Contacts</h4>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="form-group input-group">
+                                                 <span class="input-group-addon">First Name:</span>
+                                                 <input type="text" name="firstname" class="form-control" placeholder="Required" required="true">
+                                                 </div>
+                                                 <div class="form-group input-group">
+                                                  <span class="input-group-addon">Last Name:</span>
+                                                  <input type="text" name="lastname" class="form-control" placeholder="Optional" required="false">
+                                                  </div>
+                                                <div class="form-group input-group">
+                                                 <span class="input-group-addon">Moblie No:</span>
+                                                 <input type="text" name="phoneno" class="form-control" placeholder="Should Be in international format e.g +254701234567" required="true">
+                                             </div>
+                                              </div>
+                                              <div class="modal-footer">
+                                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                  <button type="submit" class="btn btn-primary">Create</button>
+                                              </div>
+                                            </form>
                                         </div>
                                     </div>
-                                    <!--  end  Context Classes  -->
                                 </div>
-                            </div>
-                                <!-- /. ROW  -->
-                            </div>
-                        </div>
+                                <!-- modal ends  -->
+
                     </div>
                 </div>
-            </div>
-
-        </div>
-
-
-
-
+                 <!-- /. ROW  -->
 
     </div>
-
-</div>
-         <!-- /. PAGE INNER  -->
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
         </div>
      <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->

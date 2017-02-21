@@ -1,7 +1,6 @@
 var User = require('../models/user');
 var Contact = require('../models/contacts');
 var Balance = require('../models/tokens');
-var Token = require('../models/tokens_logs');
 var Log = require('../models/logs');
 var Order = require('../models/orders');
 
@@ -83,9 +82,17 @@ module.exports = function(app) {
 
     app.get("/chart", isLoggedIn, function(req, res) {
 
-      Balance.find({user:req.user}, function(err, tokens){
+      var user = req.user
+
+      Balance.find({user:user}, function(err, tokens){
         if(err) return err;
-      res.render("dashboard/chart.ejs", {tokens:tokens});
+
+        Log.find({user:user}, function(err, logs){
+          if(err) return err;
+
+          res.render("dashboard/chart.ejs", {tokens:tokens, logs:logs});
+        })
+
     })
     })
 
