@@ -19,7 +19,7 @@
                               <ul class="nav nav-tabs">
 
                                   <li class="active"><a href="#contacts" data-toggle="tab">Generate Text</a></li>
-                                  <li class=""><a href="#view" data-toggle="tab">Draft Texts</a></li>
+                                  <li class=""><a href="#view" data-toggle="tab">View Saved Texts</a></li>
                               </ul>
 
                               <div class="tab-content">
@@ -85,12 +85,12 @@
                                                    <div class="col-md-6">
 
                                                      <div class="form-group">
-
                                                          <p><%= bulks[i].sms %></p>
                                                      </div>
 
                                                    </div>
                                                    <div class="col-md-6">
+                                                     <a href="/pay/<%= user.phoneno %>" class="btn btn-success">Checkout</a>
                                                      <a href="/user/sms/<%=bulks[i].id %>" class="btn btn-success">Send</a>
                                                    <a class="btn btn-primary" data-toggle="modal" data-target="#<%= bulks[i].id %>" >Update</a>
                                                  </div>
@@ -120,26 +120,19 @@
                  <% for(i=0; i<bulks.length; i++) { %>
                  <div class="modal fade" id="<%= bulks[i].id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                <div class="modal-dialog">
-                                 <form method="post" action="/text/update/<%= bulks[i].id %>" >
                                    <div class="modal-content">
                                        <div class="modal-header">
                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                            <h4 class="modal-title" id="myModalLabel">Modal title Here</h4>
                                        </div>
                                        <div class="modal-body">
-                                         <div class="form-group">
-                                             <textarea name="sms" class="form-control" rows="3" required="true"><%= bulks[i].sms %></textarea>
-                                         </div>
-
+                                           <%= bulks[i].sms %>
                                        </div>
                                        <div class="modal-footer">
-                                         <div class="form-group">
-                                           <button type="" class="btn btn-default" data-dismiss="modal">Close</button>
-                                           <button type="submit" class="btn btn-primary">Save changes</button>
-                                       </div>
+                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                           <button type="button" class="btn btn-primary">Save changes</button>
                                        </div>
                                    </div>
-                                 </form>
                                </div>
                            </div>
                            <% } %>

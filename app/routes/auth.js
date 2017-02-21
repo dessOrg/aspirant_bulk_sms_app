@@ -1,7 +1,13 @@
 var User = require('../models/user');
+var Balance = require('../models/tokens');
 var passport = require('passport');
 
 module.exports = function(app) {
+
+  app.get('/register', function(req, res){
+
+    res.render('pages/register.ejs', {message:null});
+  })
 
   app.post('/signup', function(req, res){
     var firstname=req.body.firstname;
@@ -33,22 +39,23 @@ module.exports = function(app) {
 
 
       var errors = req.validationErrors();
+      console.log(errors)
       if (errors){
         var err = errors.msg;
-        var utaken = "";
+        var utaken = errors;
 
-          res.render('/errors/flash.ejs', {messages:utaken});
+          res.render('pages/register.ejs', {error : null,message: utaken});
 
       }else {
 
-        User.getUserByUsername(email, function(err, user){
+        User.getUserByUsername(phoneno, function(err, user){
       if(err) throw err;
       if(user){
           var errors = "";
           var msg = "";
-          var utaken = "That email exists in our system."
+          var utaken = "Mobile No exists in our system."
 
-            res.render('pages/index.ejs', {error : null,messages: utaken});
+            res.render('pages/register.ejs', {error : null,message: utaken});
           }else{
 
               console.log('You have no register errors');
@@ -69,11 +76,24 @@ module.exports = function(app) {
           });
           User.createUser(newUser,function(err, user){
               if (err) throw err;
+
               req.login(user, function(err){
                     if(err) return err;
                     console.log(req.user);
-                    res.redirect(req.session.returnTo || '/use')
-                    delete req.session.returnTo;
+
+                    var tokens = 5;
+                    var balance = new Balance();
+                    balance.tokens = tokens;
+                    balance.user = req.user;
+
+                    balance.save(function(err, token){
+                      if(err) return err;
+
+                      console.log(token);
+                      res.redirect(req.session.returnTo || '/use')
+                      delete req.session.returnTo;
+                    })
+
                   });
             });
 
@@ -84,13 +104,18 @@ module.exports = function(app) {
 
   });
 
+  app.get('/login', function(req,res){
+    res.render("pages/login.ejs", {message:null})
+
+  })
+
   app.post('/login', function(req, res, next) {
        passport.authenticate('local', function(err,user){
          if(err) return err;
-         var messages = {"msg":"Unknown User"};
+         var message = {"msg":"Wrong Mobile No or Password"};
          if(!user){
-           var link = '#login'
-           res.redirect('/')
+
+           res.render('pages/login.ejs' , {message:message})
          }
          req.login(user, function(err){
            if(err) return err;

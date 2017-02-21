@@ -12,8 +12,20 @@
         <a class="navbar-brand" href="/dashboard"><%= user.firstname %> Dashboard</a>
           <% } %>
     </div>
-<div style="color: white;
-padding: 15px 50px 5px 50px;
-float: right;
-font-size: 16px;"><%= user.username %>&nbsp;&nbsp;  Tokens: 40 &nbsp; <a href="/logout" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+    <% if( user.role == "admin") { %>
+      <div style="color: white;
+      padding: 15px 50px 5px 50px;
+      float: right;
+      font-size: 16px;"><%= user.username %>&nbsp;&nbsp;   <a href="/logout" class="btn btn-danger square-btn-adjust">Logout</a>
+      </div>
+    <% }else{ %>
+      <% for(i=0; i<tokens.length; i++) { %>
+  <div style="color: white;
+  padding: 15px 50px 5px 50px;
+  float: right;
+  font-size: 16px;"><%= user.username %>&nbsp;&nbsp;  Tokens: <%= tokens[i].tokens %> &nbsp; <a href="/logout" class="btn btn-danger square-btn-adjust">Logout</a>
+  </div>
+  <% } %>
+      <% } %>
+
 </nav>

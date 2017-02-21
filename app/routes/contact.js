@@ -1,4 +1,5 @@
 var Contact = require('../models/contacts');
+var Balance = require('../models/tokens');
 
 module.exports = function(app){
 
@@ -39,8 +40,10 @@ module.exports = function(app){
       Contact.find({user:req.user}, function(err, contacts){
         if(err) return err;
 
-        res.render("dashboard/table.ejs", {contacts:contacts});
-
+        Balance.find({user:req.user}, function(err, tokens){
+          if(err) return err;
+        res.render("dashboard/table.ejs", {contacts:contacts, tokens:tokens});
+      })
       })
 
 

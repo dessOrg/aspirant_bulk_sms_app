@@ -95,7 +95,7 @@ require('./app/routes/index.js')(app);
 require('./app/routes/auth.js')(app);
 require('./app/routes/contact.js')(app);
 require('./app/routes/sms.js')(app);
-require('./app/routes/admin.js')(app);
+require('./app/routes/admin.js')(app);;
 
 
 app.set('port',(process.env.PORT || 8000));

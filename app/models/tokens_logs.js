@@ -1,21 +1,21 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var logSchema = mongoose.Schema({
+var tokenSchema = mongoose.Schema({
 
-  sms : {
+  tokens : {
     type :  String
   },
-  cost : {
+  amount : {
     type : String
   },
-  number : {
-    type : String
+  code : {
+    type :  String
   },
   date : {
     type : Date
   },
-  status : {
+  phoneno : {
     type : String
   },
   user :{
@@ -23,4 +23,4 @@ var logSchema = mongoose.Schema({
   }
 });
 
-var logSchema = module.exports = mongoose.model('Log', logSchema);
+var tokenSchema = module.exports = mongoose.model('Token', tokenSchema);

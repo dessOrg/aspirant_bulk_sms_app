@@ -37,6 +37,9 @@
 
                                         <div class="panel-body">
                                             <div class="table-responsive">
+                                              <% if(contacts.length==0){ %>
+                                                <h2 style="color:green">You have 0 Contacts. Create Contacts <a href="/form">Here</a> to proceed</h2>
+                                              <% }else{ %>
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
@@ -47,6 +50,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+
                                                       <% for(i=0; i<contacts.length; i++) { %>
                                                         <tr class="success">
                                                             <td><%= i+1 %></td>
@@ -55,8 +59,10 @@
                                                             <td><%= contacts[i].phoneno %></td>
                                                         </tr>
                                                        <% } %>
+
                                                     </tbody>
                                                 </table>
+                                                <% } %>
                                             </div>
                                         </div>
                                     </div>

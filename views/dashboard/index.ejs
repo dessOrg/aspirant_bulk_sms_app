@@ -10,12 +10,58 @@
       <div id="page-wrapper" >
           <div id="page-inner">
               <div class="row">
-                  <div class="col-md-12">
-                   <h2><%= user.firstname %> Dashboard</h2>
-                      <h5>Welcome <%= user.firstname %> <%= user.lastname %> , Love to see you back. </h5>
+                  <div class="col-md-6">
+                   <h2>Welcome <%= user.firstname %> <%= user.lastname %> </h2>
+                      <h5>Love to see you back. </h5>
+                  </div>
+                  <div class="col-md-4">
+                    <% if (success_msg){ %>
+                      <div data-alert class="alert-box alert success radius" style="color : green">
+                        <%= success_msg %>
+                        <a href="#" class="close">&times;</a>
+                      </div>
+                    <% } else if (err_msg){ %>
+                      <div data-alert class="alert-box warning radius">
+                        <%= err_msg %>
+                        <a href="#" class="close">&times;</a>
+                      </div>
+                    <% } %>
+
+                  </div>
+                  <div class="col-md-2">
+                    <br><br>
+                   <a class="btn btn-primary" data-toggle="modal" data-target="#token" >Purchase Tokens</a>
                   </div>
               </div>
                <!-- /. ROW  -->
+               <div class="modal fade" id="token" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                             <div class="modal-dialog">
+                                 <div class="modal-content">
+                                   <form id="contact-form" method="POST" action="/token/order">
+                                     <div class="modal-header">
+                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                         <h4 class="modal-title" id="myModalLabel">Enter Amount</h4>
+                                     </div>
+                                     <div class="modal-body">
+                                       <div class="form-group input-group">
+                                        <span class="input-group-addon">MPESA CODE</span>
+                                        <input type="text" name="code" class="form-control" placeholder="e.g LBG65RMS42"required="true">
+                                        </div>
+                                       <div class="form-group input-group">
+                                        <span class="input-group-addon">KES</span>
+                                        <input type="text" name="amount" class="form-control" required="true">
+                                        <span class="input-group-addon">.00</span>
+                                    </div>
+                                     </div>
+                                     <div class="modal-footer">
+                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                         <button type="submit" class="btn btn-primary">Submit</button>
+                                     </div>
+                                   </form>
+                                 </div>
+                             </div>
+                         </div>
+                         <!-- modal ends  -->
                 <hr />
               <div class="row">
               <div class="col-md-3 col-sm-6 col-xs-6">
@@ -24,7 +70,7 @@
                   <i class="fa fa-envelope-o"></i>
               </span>
               <div class="text-box" >
-                  <p class="main-text">120 New</p>
+                  <p class="main-text"><%= messages %> send</p>
                   <p class="text-muted">Messages</p>
               </div>
            </div>
@@ -57,7 +103,7 @@
                   <i class="fa fa-rocket"></i>
               </span>
               <div class="text-box" >
-                  <p class="main-text">3 Orders</p>
+                  <p class="main-text"><%= pending %> Orders</p>
                   <p class="text-muted">Pending</p>
               </div>
            </div>
@@ -66,7 +112,7 @@
                <!-- /. ROW  -->
               <hr />
 
-               
+
                <!-- /. ROW  -->
               <div class="row" >
                   <div class="col-md-3 col-sm-12 col-xs-12">
@@ -87,7 +133,7 @@
 
                   <div class="panel panel-default">
                       <div class="panel-heading">
-                         Responsive Table Example
+                         Tokens History
                       </div>
                       <div class="panel-body">
                           <div class="table-responsive">
@@ -95,56 +141,30 @@
                                   <thead>
                                       <tr>
                                           <th>#</th>
-                                          <th>First Name</th>
-                                          <th>Last Name</th>
-                                          <th>Username</th>
-                                           <th>User No.</th>
+                                          <th>Mpesa Code</th>
+                                          <th>Tokens</th>
+                                          <th>Cost</th>
+                                          <th>Date</th>
+                                          <th>Status</th>
+
                                       </tr>
                                   </thead>
                                   <tbody>
+                                    <% for(i=0; i<orders.length; i++) { %>
                                       <tr>
-                                          <td>1</td>
-                                          <td>Mark</td>
-                                          <td>Otto</td>
-                                          <td>@mdo</td>
-                                          <td>100090</td>
-                                      </tr>
-                                      <tr>
-                                          <td>2</td>
-                                          <td>Jacob</td>
-                                          <td>Thornton</td>
-                                          <td>@fat</td>
-                                          <td>100090</td>
-                                      </tr>
-                                      <tr>
-                                          <td>3</td>
-                                          <td>Larry</td>
-                                          <td>the Bird</td>
-                                          <td>@twitter</td>
-                                          <td>100090</td>
-                                      </tr>
-                                       <tr>
-                                          <td>1</td>
-                                          <td>Mark</td>
-                                          <td>Otto</td>
-                                          <td>@mdo</td>
-                                          <td>100090</td>
-                                      </tr>
-                                      <tr>
-                                          <td>2</td>
-                                          <td>Jacob</td>
-                                          <td>Thornton</td>
-                                          <td>@fat</td>
-                                          <td>100090</td>
-                                      </tr>
-                                      <tr>
-                                          <td>3</td>
-                                          <td>Larry</td>
-                                          <td>the Bird</td>
-                                          <td>@twitter</td>
-                                          <td>100090</td>
-                                      </tr>
+                                          <td><%= i+1 %></td>
+                                          <td><%= orders[i].code %></td>
+                                          <td><% if(orders[i].tokens){ %>
+                                            <%= orders[i].tokens %>
+                                          <%}else {%>
+                                            -
+                                            <%} %></td>
+                                          <td>KES <%= orders[i].amount %></td>
+                                          <td><%= orders[i].date %></td>
+                                          <td><%= orders[i].status %></td>
 
+                                      </tr>
+                                    <% } %>
                                   </tbody>
                               </table>
                           </div>

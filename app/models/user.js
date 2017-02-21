@@ -51,7 +51,11 @@ module.exports.createUser = function(newUser, callback){
 }
 module.exports.getUserByUsername = function(username, callback){
 
-  User.findOne({email:username}, callback);
+  User.findOne({phoneno:username}, callback);
+}
+module.exports.getUserByPhoneno = function(phoneno, callback){
+
+  User.findOne({phoneno:phoneno}, callback);
 }
 module.exports.getUserById = function(id, callback){
   User.findById(id, callback);

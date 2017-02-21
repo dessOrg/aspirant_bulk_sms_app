@@ -36,7 +36,7 @@
               </span>
 
               <div class="text-box" >
-                  <p class="main-text"><%= users %> Users</p>
+                  <p class="main-text"><%= count %> Users</p>
                   <p class="text-muted">Registered</p>
               </div>
            </div>
@@ -58,7 +58,7 @@
                   <i class="fa fa-rocket"></i>
               </span>
               <div class="text-box" >
-                  <p class="main-text">3 Orders</p>
+                  <p class="main-text"><%= order_count %> Orders</p>
                   <p class="text-muted">Pending</p>
               </div>
            </div>
@@ -66,121 +66,16 @@
     </div>
                <!-- /. ROW  -->
               <hr />
-              <div class="row">
-                  <div class="col-md-6 col-sm-12 col-xs-12">
-    <div class="panel panel-back noti-box">
-              <span class="icon-box bg-color-blue">
-                  <i class="fa fa-warning"></i>
-              </span>
-              <div class="text-box" >
-                  <p class="main-text">52 Important Issues to Fix </p>
-                  <p class="text-muted">Please fix these issues to work smooth</p>
-                  <p class="text-muted">Time Left: 30 mins</p>
-                  <hr />
-                  <p class="text-muted">
-                        <span class="text-muted color-bottom-txt"><i class="fa fa-edit"></i>
-                             Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn.
-                             </span>
-                  </p>
-              </div>
-           </div>
-       </div>
 
-
-                  <div class="col-md-3 col-sm-12 col-xs-12">
-                      <div class="panel back-dash">
-                             <i class="fa fa-dashboard fa-3x"></i><strong> &nbsp; SPEED</strong>
-                           <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing sit ametsit amet elit ftr. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                      </div>
-
-                  </div>
-                  <div class="col-md-3 col-sm-12 col-xs-12 ">
-                      <div class="panel ">
-        <div class="main-temp-back">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-xs-6"> <i class="fa fa-cloud fa-3x"></i> Newyork City </div>
-              <div class="col-xs-6">
-                <div class="text-temp"> 10° </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-                   <div class="panel panel-back noti-box">
-              <span class="icon-box bg-color-green set-icon">
-                  <i class="fa fa-desktop"></i>
-              </span>
-              <div class="text-box" >
-                  <p class="main-text">Display</p>
-                  <p class="text-muted">Looking Good</p>
-              </div>
-           </div>
-
-  </div>
-
-      </div>
                <!-- /. ROW  -->
-              <div class="row">
 
-
-                             <div class="col-md-9 col-sm-12 col-xs-12">
-                  <div class="panel panel-default">
-                      <div class="panel-heading">
-                          Bar Chart Example
-                      </div>
-                      <div class="panel-body">
-                          <div id="morris-bar-chart"></div>
-                      </div>
-                  </div>
-              </div>
-                  <div class="col-md-3 col-sm-12 col-xs-12">
-                  <div class="panel panel-primary text-center no-boder bg-color-green">
-                      <div class="panel-body">
-                          <i class="fa fa-bar-chart-o fa-5x"></i>
-                          <h3>120 GB </h3>
-                      </div>
-                      <div class="panel-footer back-footer-green">
-                         Disk Space Available
-
-                      </div>
-                  </div>
-                  <div class="panel panel-primary text-center no-boder bg-color-red">
-                      <div class="panel-body">
-                          <i class="fa fa-edit fa-5x"></i>
-                          <h3>20,000 </h3>
-                      </div>
-                      <div class="panel-footer back-footer-red">
-                          Articles Pending
-
-                      </div>
-                  </div>
-                      </div>
-
-         </div>
-               <!-- /. ROW  -->
               <div class="row" >
-                  <div class="col-md-3 col-sm-12 col-xs-12">
-<div class="panel panel-primary text-center no-boder bg-color-green">
-                      <div class="panel-body">
-                          <i class="fa fa-comments-o fa-5x"></i>
-                          <h4>200 New Comments </h4>
-                           <h4>See All Comments  </h4>
-                      </div>
-                      <div class="panel-footer back-footer-green">
-                           <i class="fa fa-rocket fa-5x"></i>
-                          Lorem ipsum dolor sit amet sit sit, consectetur adipiscing elitsit sit gthn ipsum dolor sit amet ipsum dolor sit amet
 
-                      </div>
-                  </div>
-                  </div>
-                  <div class="col-md-9 col-sm-12 col-xs-12">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
 
                   <div class="panel panel-default">
                       <div class="panel-heading">
-                         Responsive Table Example
+                         Pending Orders 
                       </div>
                       <div class="panel-body">
                           <div class="table-responsive">
@@ -188,56 +83,27 @@
                                   <thead>
                                       <tr>
                                           <th>#</th>
-                                          <th>First Name</th>
-                                          <th>Last Name</th>
-                                          <th>Username</th>
-                                           <th>User No.</th>
+                                          <th>Date</th>
+                                          <th>Code</th>
+                                          <th>Amount</th>
+                                           <th>User</th>
+                                           <th>Status</th>
+                                           <th>Action</th>
                                       </tr>
                                   </thead>
                                   <tbody>
+                                    <% for(i=0; i<orders.length; i++) { %>
                                       <tr>
-                                          <td>1</td>
-                                          <td>Mark</td>
-                                          <td>Otto</td>
-                                          <td>@mdo</td>
-                                          <td>100090</td>
-                                      </tr>
-                                      <tr>
-                                          <td>2</td>
-                                          <td>Jacob</td>
-                                          <td>Thornton</td>
-                                          <td>@fat</td>
-                                          <td>100090</td>
-                                      </tr>
-                                      <tr>
-                                          <td>3</td>
-                                          <td>Larry</td>
-                                          <td>the Bird</td>
-                                          <td>@twitter</td>
-                                          <td>100090</td>
-                                      </tr>
-                                       <tr>
-                                          <td>1</td>
-                                          <td>Mark</td>
-                                          <td>Otto</td>
-                                          <td>@mdo</td>
-                                          <td>100090</td>
-                                      </tr>
-                                      <tr>
-                                          <td>2</td>
-                                          <td>Jacob</td>
-                                          <td>Thornton</td>
-                                          <td>@fat</td>
-                                          <td>100090</td>
-                                      </tr>
-                                      <tr>
-                                          <td>3</td>
-                                          <td>Larry</td>
-                                          <td>the Bird</td>
-                                          <td>@twitter</td>
-                                          <td>100090</td>
-                                      </tr>
+                                          <td><%= i+1 %></td>
+                                          <td><%= orders[i].date %></td>
+                                          <td>KES <%= orders[i].code %></td>
+                                          <td><%= orders[i].amount %></td>
+                                          <td><%= orders[i].phoneno %></td>
+                                          <td><%= orders[i].status %></td>
+                                          <td><a class="btn btn-primary" data-toggle="modal" data-target="#<%= orders[i].id %>" >Update</a></td>
 
+                                      </tr>
+                                      <% } %>
                                   </tbody>
                               </table>
                           </div>
@@ -246,6 +112,47 @@
 
                   </div>
               </div>
+
+              <!-- Modal start -->
+              <% for(i=0; i<orders.length; i++) { %>
+              <div class="modal fade" id="<%= orders[i].id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <form id="contact-form" method="POST" action="/token/confirm/<%= orders[i].id %>/<%= orders[i].user %>">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Modal title Here</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="modal-body">
+                                        <div class="form-group">
+                                         <span class="input-group-addon">MPESA CODE</span>
+                                         <span class="input-group-addon"><%= orders[i].code %></span>
+
+                                         </div>
+                                         <div class="form-group input-group">
+                                          <span class="input-group-addon">CONFIRM AMOUNT</span>
+                                          <input type="text" name="amount" class="form-control" required="true">
+                                          <span class="input-group-addon">.00</span>
+                                          </div>
+                                        <div class="form-group input-group">
+                                         <span class="input-group-addon">ASSIGN TOKENS</span>
+                                         <input type="text" name="tokens" class="form-control" required="true">
+
+                                     </div>
+                                      </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+              <!-- Modal Ends -->
                <!-- /. ROW  -->
               <div class="row">
                   <div class="col-md-6 col-sm-12 col-xs-12">

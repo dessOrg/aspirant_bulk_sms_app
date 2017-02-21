@@ -1,6 +1,7 @@
 var Bulk = require('../models/sms');
 var Contact = require('../models/contacts');
 var Log = require('../models/logs');
+var Balance = require('../models/tokens');
 
 
 // We need this to build our post string
@@ -9,7 +10,7 @@ var https       = require('https');
 
 module.exports = function(app){
 
-  // Your login credentials
+  // africastalking user credentials
   var username = 'desshub';
   var apikey   = 'b8a87060086b16297c5ebe5190964f09fd258ec51a969ad88cd8c131243ef8fc';
 
@@ -33,11 +34,34 @@ module.exports = function(app){
 
  })
 
+ app.post('/text/update/:id', function(req, res){
+   var id = req.params.id;
+   var sms = req.body.sms;
+
+   var messages = '';
+
+     var bulk = new Bulk();
+          bulk._id = id;
+
+        bulk.update({sms:sms}, function(err, bulk){
+          if (err) return err;
+
+          console.log(bulk)
+          messages = "Sms updated Successfully";
+          res.redirect('/text')
+        })
+
+})
+
  app.get("/text", isLoggedIn, function(req, res) {
    var messages = ''
    Bulk.find({user:req.user}, function(err, bulks){
      if(err) return err;
-     res.render("dashboard/text.ejs", {bulks:bulks} );
+
+     Balance.find({user:req.user}, function(err, tokens){
+       if(err) return err;
+     res.render("dashboard/text.ejs", {bulks:bulks, tokens:tokens} );
+   })
    })
 
  })
@@ -57,6 +81,13 @@ module.exports = function(app){
     console.log(message)
      Contact.find({user:req.user}, function(err, contacts){
        if(err) return err;
+
+       var count = 0;
+
+       if(contacts.length==0){
+         res.redirect('/table')
+       }else {
+
 
        for(i=0; i<contacts.length; i++){
 
@@ -104,11 +135,25 @@ module.exports = function(app){
                             var str  = 'number=' + recipients[i].number;
                             str     += ';cost='   + recipients[i].cost;
                             str     += ';status=' + recipients[i].status; // status is either "Success" or "error message"
-                            log.push(str);
-                            console.log(log);
+
+                            var number = recipients[i].number;
+                            var cost = 1.5000;
+                            var status = recipients[i].status;
                             }
-                            logStr =log;
-                            console.log(logStr)
+
+                            var log = new Log();
+                            log.date = Date();
+                            log.sms = message;
+                            log.cost = cost;
+                            log.number = number;
+                            log.status = status;
+                            log.user = req.user;
+                            log.save(function(err, log){
+                              if(err) return err;
+                              console.log(log);
+
+                            })
+
                         } else {
                             console.log('Error while sending: ' + jsObject.SMSMessageData.Message);
                     }
@@ -122,15 +167,11 @@ module.exports = function(app){
 
             post_req.end();
         }
-        var log = new Log();
-        log.sms = message;
-        log.logStr = logStr;
-        log.user = req.user;
-        log.save(function(err, log){
-          if(err) return err;
-          console.log(log);
+
+
           res.redirect('/text')
-        })
+           }
+
         //Call sendMessage method
         //sendMessage();
 
