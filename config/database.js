@@ -1,7 +1,7 @@
 module.exports=[
 	{
     'environment': 'development',
-    'url'       : 'mongodb://localhost/aspirantdb',
+    'url'       : 'mongodb://dessHub:1ncorrect.@ds157459.mlab.com:57459/aspirantdb',
     'secret'    : 'anystringoftext'
   },
 
