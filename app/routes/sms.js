@@ -49,6 +49,23 @@ module.exports = function(app){
 
 })
 
+app.get('/delete/sms/:id', function(req, res){
+
+  Bulk.find({id:req.params.id}, function(err, bulk) {
+ if (err) throw err;
+ // delete sms
+ var bulk = new Bulk();
+ bulk._id = req.params.id;
+ bulk.remove(function(err) {
+if (err) throw err;
+ req.session.oldUrl = req.url;
+ req.flash('success_msg', 'Campaign removed succesfully.' );
+ res.redirect('/text');
+});
+});
+
+})
+
  app.get("/text", isLoggedIn, function(req, res) {
    var messages = ''
    Bulk.find({user:req.user}, function(err, bulks){
@@ -74,7 +91,7 @@ module.exports = function(app){
      for(i=0; i<bulk.length; i++){
         message = bulk[i].sms;
      }
-    console.log(message)
+
      Contact.find({user:req.user}, function(err, contacts){
        if(err) return err;
 
@@ -87,9 +104,12 @@ module.exports = function(app){
           if(err) return err;
 
           var bal = 0;
+          var bal_id = '';
           for(i=0; i<balance.length; i++){
-            bal += balance[i].tokens;
+            bal += parseInt(balance[i].tokens);
+            bal_id = balance[i].id;
           }
+
           if(contacts.length>bal){
             var diff = contacts.length-bal;
             var flash = "Insufficient tokens, add " + diff +" to proceed";
@@ -146,6 +166,7 @@ module.exports = function(app){
                                  var number = recipients[i].number;
                                  var cost = 1.5000;
                                  var status = recipients[i].status;
+                                 var count = i+1;
                                  }
 
                                  var log = new Log();
@@ -157,9 +178,22 @@ module.exports = function(app){
                                  log.user = req.user;
                                  log.save(function(err, log){
                                    if(err) return err;
-                                   console.log(log);
+                                    //console.log(log);
 
-                                 })
+                                   })
+
+                                 if(status == "Success"){
+
+                                   var b = bal-contacts.length;
+                                   console.log(b);
+                                   var balance = new Balance();
+                                   balance._id = bal_id;
+                                   balance.update({tokens:b}, function(err, token){
+                                   if(err) return err;
+                                   console.log(token);
+                                     })
+
+                               }
 
                              } else {
                                   var error = 'Error while sending: ' + jsObject.SMSMessageData.Message;
@@ -176,7 +210,7 @@ module.exports = function(app){
 
                  post_req.end();
                    }
-                   res.redirect('/text')
+                   res.redirect('/chart')
           }
         })
 
