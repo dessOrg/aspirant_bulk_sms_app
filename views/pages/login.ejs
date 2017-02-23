@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<% include ../partials/head.ejs %>
+<body >
+<!-- [ LOADERs ]
+================================================================================================================================-->
+
+<!-- [ /PRELOADER ]
+=============================================================================================================================-->
+<!-- [WRAPPER ]
+=============================================================================================================================-->
+<div class="wrapper">
+  <!-- [NAV]-->
+  ============================================================================================================================-->
+    <!-- Navigation-->
+     ==========================================-->
+     <% include ../partials/nav.ejs %>
+
+    <!-- [/NAV]-->
+  ============
+
+  <section class="why-love theme_background_color" id="login">
+      <div class="overlay">
+    <div class="container">
+
+             <div class="row text-center">
+                 <div class="WhyLove-heading text-center">
+
+                     <h2 class="sectionTitle">Login Here</h2>
+                 </div>
+             </div>
+
+
+             <% if (message) { %>
+               <div class="row">
+                  <!-- /contact info -->
+                  <div class="col-md-3 col-sm-12 col-xs-3"></div>
+                  <div class="col-md-6 col-sm-12 col-xs-6">
+                   <div class="alert alert-danger"><%= message.msg %></div>
+                 </div></div>
+            <% } %>
+             <div class="row">
+                            <!-- /contact info -->
+                            <div class="col-md-3 col-sm-12 col-xs-3"></div>
+                            <div class="col-md-6 col-sm-12 col-xs-6">
+                              <!-- contact form -->
+                              <form id="contact-form" method="POST" action="/login">
+                                <div class="row form-group">
+                                  <div class="col-xs-12">
+
+                                    <input type="text" name="username" placeholder="Mobile No in format +2547" id="" class="form-control ">
+                                    <input type="password" name="password" placeholder="Password" id="password" class="form-control">
+
+                                  </div>
+                                   <br><br>
+                                  <div class="row">
+                                    <div class="col-md-3 col-sm-12 col-xs-3"></div>
+                                    <div class="col-md-6 col-sm-12 col-xs-6">
+                                      <br><br><button type="submit" class="btn btn-style blue">Login</button>
+                                    <span class="form-message" style="display: none;"></span>
+                                  </div>
+                                </div>
+                               </div>
+                              </form>
+                              <!-- /contact form -->
+                              <div class="row">
+                                <div class="col-md-3 col-sm-12 col-xs-2"></div>
+                                <div class="col-md-6 col-sm-12 col-xs-6">
+                                  <div>Don't have a account? <a href="/register" style="color : blue">Sign Up here</a></div>
+                              </div>
+                          </div>
+         </div>
+
+      </div><br><br><br><br>
+
+  </section>
+  <!-- [/Login]
+=============================================================================================================================-->
+
+</div>
+</body>
+</html>

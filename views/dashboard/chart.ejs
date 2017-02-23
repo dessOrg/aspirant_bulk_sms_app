@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<% include ../partials/admin-head %>
+<body>
+    <div id="wrapper">
+        <% include ../partials/admin-nav %>
+           <!-- /. NAV TOP  -->
+                <% include ../partials/admin-side %>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <h2>Campaign History</h2>
+                                </div>
+                                <div class="col-md-4">
+
+                                </div>
+                                <div class="col-md-4">
+                                  <br>
+                                 <a class="btn btn-primary" href="/text" >Start New Campaign</a>
+                                </div>
+                                </div>
+
+                          </div>
+                          <div class="panel-body">
+
+                             <!-- Tab Content -->
+
+                                  <div class="row">
+                                  <div class="col-md-12">
+                                       <!--    Context Classes  -->
+                                       <!-- Form Elements -->
+                                       <div class="panel panel-default">
+                                           <div class="panel-heading">
+
+                                           </div>
+                                           <div class="panel-body">
+                                               <div class="table-responsive">
+                                                 <% if(logs.length==0){ %>
+                                                   <h2 style="color:green">You have 0 History. <a href="/text">Start New Campaign</a> </h2>
+                                                 <% }else{ %>
+                                                   <table class="table">
+                                                       <thead>
+                                                           <tr>
+                                                               <th>#</th>
+                                                               <th>Date</th>
+                                                               <th>Campaign</th>
+                                                               <th>Cost</th>
+                                                               <th>Mobile No</th>
+                                                               <th>Status</th>
+                                                           </tr>
+                                                       </thead>
+                                                       <tbody>
+
+                                                         <% for(i=0; i<logs.length; i++) { %>
+                                                           <tr class="success">
+                                                               <td><%= i+1 %></td>
+                                                               <td><%= logs[i].date %></td>
+                                                               <td><%= logs[i].sms %></td>
+                                                               <td>KES <%= logs[i].cost %>000</td>
+                                                               <td><%= logs[i].number %></td>
+                                                               <td><%= logs[i].status %></td>
+                                                           </tr>
+                                                          <% } %>
+
+                                                       </tbody>
+                                                   </table>
+                                                   <% } %>
+                                               </div>
+                                           </div>
+
+                                       </div>
+                                        <!-- End Form Elements -->
+                                      <!--  end  Context Classes  -->
+                                  </div>
+
+                             <!-- End of Tab -->
+
+                              </div>
+                          </div>
+                      </div>
+
+
+
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <% include ../partials/admin-scripts %>
+
+
+</body>
+</html>

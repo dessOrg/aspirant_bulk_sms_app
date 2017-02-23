@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<% include ../partials/admin-head %>
+<body>
+    <div id="wrapper">
+        <% include ../partials/admin-nav %>
+           <!-- /. NAV TOP  -->
+                <% include ../partials/admin-side %>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                     <h2> Sorry!! <%= user.firstname %> , You Can Access This Page.</h2>
+                        
+
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+
+
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <% include ../partials/admin-scripts %>
+
+
+</body>
+</html>

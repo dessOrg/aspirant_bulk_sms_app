@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<% include ../partials/admin-head %>
+<body>
+    <div id="wrapper">
+        <% include ../partials/admin-nav %>
+           <!-- /. NAV TOP  -->
+                <% include ../partials/admin-side %>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                     <h2>Contacts Registrations</h2>
+
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+               <div class="row">
+                 <div class="col-md-2"></div>
+                <div class="col-md-8">
+
+
+
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Create New Contact:
+                        </div>
+                        <div class="panel-body">
+                          <form method="post" action="/contact/new" >
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                        <div class="form-group required">
+                                            <label>First Name:</label>
+                                            <input class="form-control" type="text" name="firstname" placeholder="" required="true"/>
+                                        </div>
+                                        <div class="form-group required">
+                                            <label>Last Name:</label>
+                                            <input class="form-control" type="text" name="lastname" />
+                                        </div>
+                                        <div class="form-group required">
+                                            <label>Mobile No:</label>
+                                            <input class="form-control" type="text" name="phoneno" placeholder="Phone Number should begin with +2547" required="true" />
+                                        </div>
+
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-offset-4 col-lg-6">
+                              <input class="btn btn-success" type="submit" value="Save">
+                              <input class="btn btn-primary" type="reset" value="Reset">
+                            </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                     <!-- End Form Elements -->
+                </div>
+            </div>
+
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <% include ../partials/admin-scripts %>
+
+
+</body>
+</html>

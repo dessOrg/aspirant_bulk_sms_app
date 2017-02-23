@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<% include ../partials/admin-head %>
+<body>
+    <div id="wrapper">
+        <% include ../partials/admin-nav %>
+           <!-- /. NAV TOP  -->
+                <% include ../partials/admin-side %>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <h2>Campaign Portal</h2>
+                                </div>
+                                <div class="col-md-4">
+                                  <% if (success_msg){ %>
+                                    <div data-alert class="alert-box alert success radius" style="color : green">
+                                      <%= success_msg %>
+                                    </div>
+
+                                  <% } if (error_msg){ %>
+                                    <div data-alert class="alert-box warning radius" style="color : red">
+                                      <%= error_msg %>
+                                      <a href="#" class="close">&times;</a>
+                                    </div>
+                                  <% } %>
+                                </div>
+                                <div class="col-md-4">
+                                  <br>
+                                 <a class="btn btn-primary" data-toggle="modal" data-target="#text" >Create New Campaign</a>
+                                </div>
+                                </div>
+
+                          </div>
+                          <div class="panel-body">
+
+                             <!-- Tab Content -->
+
+                                  <div class="row">
+                                  <div class="col-md-12">
+                                       <!--    Context Classes  -->
+                                       <!-- Form Elements -->
+                                       <div class="panel panel-default">
+                                           <div class="panel-heading">
+
+                                           </div>
+                                           <div class="panel-body">
+                                            <% for(i=0; i<bulks.length; i++) { %>
+                                               <div class="row">
+
+                                                   <div class="col-md-6">
+
+                                                     <div class="form-group">
+
+                                                         <p><%= bulks[i].sms %></p>
+                                                     </div>
+
+                                                   </div>
+                                                   <div class="col-md-6">
+                                                     <a href="/user/sms/<%=bulks[i].id %>" class="btn btn-success">Send</a>
+                                                   <a class="btn btn-primary" data-toggle="modal" data-target="#<%= bulks[i].id %>" >Update</a>
+                                                   <a href="/delete/sms/<%=bulks[i].id %>" class="btn btn-danger">Delete</a>
+                                                 </div>
+
+
+                                               </div>
+                                            <hr>
+                                             <% } %>
+                                           </div>
+                                       </div>
+                                        <!-- End Form Elements -->
+                                      <!--  end  Context Classes  -->
+                                  </div>
+
+                             <!-- End of Tab -->
+
+                              </div>
+                          </div>
+                      </div>
+
+                      <!-- /. ROW  -->
+                      <div class="modal fade" id="text" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <form id="contact-form" method="POST" action="/text/new">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">New Campaign</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                              <div class="form-group">
+                                                  <textarea name="sms" class="form-control" rows="3" placeholder="Should contain aspirant name e.g James Bond mca aspirant mtaa ward invites you to his campaign launching at Mtaa grounds" required="true"></textarea>
+                                              </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Create</button>
+                                            </div>
+                                          </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- modal ends  -->
+
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <!-- Modal start -->
+                 <% for(i=0; i<bulks.length; i++) { %>
+                 <div class="modal fade" id="<%= bulks[i].id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                               <div class="modal-dialog">
+                                 <form method="post" action="/text/update/<%= bulks[i].id %>" >
+                                   <div class="modal-content">
+                                       <div class="modal-header">
+                                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                           <h4 class="modal-title" id="myModalLabel">Update Campaign</h4>
+                                       </div>
+                                       <div class="modal-body">
+                                         <div class="form-group">
+                                             <textarea name="sms" class="form-control" rows="3" required="true"><%= bulks[i].sms %></textarea>
+                                         </div>
+
+                                       </div>
+                                       <div class="modal-footer">
+                                         <div class="form-group">
+                                           <button type="" class="btn btn-default" data-dismiss="modal">Close</button>
+                                           <button type="submit" class="btn btn-primary">Save changes</button>
+                                       </div>
+                                       </div>
+                                   </div>
+                                 </form>
+                               </div>
+                           </div>
+                           <% } %>
+                 <!-- Modal Ends -->
+
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <% include ../partials/admin-scripts %>
+
+
+</body>
+</html>

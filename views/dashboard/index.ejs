@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html >
+<% include ../partials/admin-head %>
+<body>
+  <div id="wrapper">
+      <% include ../partials/admin-nav %>
+         <!-- /. NAV TOP  -->
+            <% include ../partials/admin-side %>
+      <!-- /. NAV SIDE  -->
+      <div id="page-wrapper" >
+          <div id="page-inner">
+              <div class="row">
+                  <div class="col-md-6">
+                   <h2>Welcome <%= user.firstname %> <%= user.lastname %> </h2>
+                      <h5>Love to see you back. </h5>
+                  </div>
+                  <div class="col-md-4">
+                    <% if (success_msg){ %>
+                      <div data-alert class="alert-box alert success radius" style="color : green">
+                        <%= success_msg %>
+                      </div>
+                    <% } if (error_msg){ %>
+                      <div data-alert class="alert-box warning radius" style="color : red">
+                        <%= error_msg %>
+                      </div>
+                    <% } %>
+
+                  </div>
+                  <div class="col-md-2">
+                    <br><br>
+                   <a class="btn btn-primary" data-toggle="modal" data-target="#token" >Purchase Tokens</a>
+                  </div>
+              </div>
+               <!-- /. ROW  -->
+               <div class="modal fade" id="token" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                             <div class="modal-dialog">
+                                 <div class="modal-content">
+                                   <form id="contact-form" method="POST" action="/token/order">
+                                     <div class="modal-header">
+                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                         <h4 class="modal-title" id="myModalLabel">Enter Amount</h4>
+                                     </div>
+                                     <div class="modal-body">
+                                       <div class="form-group input-group">
+                                        <span class="input-group-addon">MPESA CODE</span>
+                                        <input type="text" name="code" class="form-control" placeholder="e.g LBG65RMS42"required="true">
+                                        </div>
+                                       <div class="form-group input-group">
+                                        <span class="input-group-addon">KES</span>
+                                        <input type="text" name="amount" class="form-control" required="true">
+                                        <span class="input-group-addon">.00</span>
+                                    </div>
+                                     </div>
+                                     <div class="modal-footer">
+                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                         <button type="submit" class="btn btn-primary">Submit</button>
+                                     </div>
+                                   </form>
+                                 </div>
+                             </div>
+                         </div>
+                         <!-- modal ends  -->
+                <hr />
+              <div class="row">
+              <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="panel panel-back noti-box">
+              <span class="icon-box bg-color-red set-icon">
+                  <i class="fa fa-envelope-o"></i>
+              </span>
+              <div class="text-box" >
+                  <p class="main-text"><%= messages %> Send</p>
+                  <p class="text-muted">Messages</p>
+              </div>
+           </div>
+       </div>
+                  <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="panel panel-back noti-box">
+              <span class="icon-box bg-color-green set-icon">
+                  <i class="fa fa-bars"></i>
+              </span>
+              <div class="text-box" >
+                  <p class="main-text"> <%= contacts %> Saved </p>
+                  <p class="text-muted">Contacts</p>
+              </div>
+           </div>
+       </div>
+                  <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="panel panel-back noti-box">
+              <span class="icon-box bg-color-blue set-icon">
+                  <i class="fa fa-bell-o"></i>
+              </span>
+              <div class="text-box" >
+                <% for(i=0; i<tokens.length; i++) { %>
+                  <p class="main-text"><%= tokens[i].tokens %> Tokens</p>
+                  <p class="text-muted">Remaining</p>
+                  <% } %>
+              </div>
+           </div>
+       </div>
+                  <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="panel panel-back noti-box">
+              <span class="icon-box bg-color-brown set-icon">
+                  <i class="fa fa-rocket"></i>
+              </span>
+              <div class="text-box" >
+                  <p class="main-text"><%= pending %> Orders</p>
+                  <p class="text-muted">Pending</p>
+              </div>
+           </div>
+       </div>
+    </div>
+               <!-- /. ROW  -->
+              <hr />
+
+
+               <!-- /. ROW  -->
+              <div class="row" >
+                  <div class="col-md-3 col-sm-12 col-xs-12">
+<div class="panel panel-primary text-center no-boder bg-color-green">
+                      <div class="panel-body">
+                          <i class="fa fa-comments-o fa-5x"></i>
+                          <h4>Get In Touch </h4>
+                           <h4>For More Details  </h4>
+                      </div>
+                      <div class="panel-footer back-footer-green">
+                           <i class="fa fa-rocket fa-5x"></i>
+                          Lipa Na MPESA Services is comming soon. To buy tokens : Send money via mpesa to the given number ,then update mpesa code on Purchase token modal.
+
+                      </div>
+                  </div>
+                  </div>
+                  <div class="col-md-9 col-sm-12 col-xs-12">
+
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                         Tokens History
+                      </div>
+                      <div class="panel-body">
+                          <div class="table-responsive">
+                              <table class="table table-striped table-bordered table-hover">
+                                  <thead>
+                                      <tr>
+                                          <th>#</th>
+                                          <th>Mpesa Code</th>
+                                          <th>Tokens</th>
+                                          <th>Cost</th>
+                                          <th>Date</th>
+                                          <th>Status</th>
+
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    <% for(i=0; i<orders.length; i++) { %>
+                                      <tr>
+                                          <td><%= i+1 %></td>
+                                          <td><%= orders[i].code %></td>
+                                          <td><% if(orders[i].tokens){ %>
+                                            <%= orders[i].tokens %>
+                                          <%}else {%>
+                                            -
+                                            <%} %></td>
+                                          <td>KES <%= orders[i].amount %></td>
+                                          <td><%= orders[i].date %></td>
+                                          <td><%= orders[i].status %></td>
+
+                                      </tr>
+                                    <% } %>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+
+                  </div>
+              </div>
+               <!-- /. ROW  -->
+
+
+  </div>
+           <!-- /. PAGE INNER  -->
+          </div>
+       <!-- /. PAGE WRAPPER  -->
+      </div>
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <% include ../partials/admin-scripts %>
+
+
+</body>
+</html>

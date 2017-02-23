@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html >
+<% include ../partials/admin-head %>
+<body>
+  <div id="wrapper">
+      <% include ../partials/admin-nav %>
+         <!-- /. NAV TOP  -->
+            <% include ../partials/admin-side %>
+      <!-- /. NAV SIDE  -->
+      <div id="page-wrapper" >
+          <div id="page-inner">
+              <div class="row">
+                  <div class="col-md-12">
+                   <h2>Admin Dashboard</h2>
+                      <h5>Welcome <%= user.firstname %> <%= user.lastname %> , Love to see you back. </h5>
+                  </div>
+              </div>
+               <!-- /. ROW  -->
+                <hr />
+              <div class="row">
+              <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="panel panel-back noti-box">
+              <span class="icon-box bg-color-red set-icon">
+                  <i class="fa fa-envelope-o"></i>
+              </span>
+              <div class="text-box" >
+                  <p class="main-text">120 New</p>
+                  <p class="text-muted">Messages</p>
+              </div>
+           </div>
+       </div>
+                  <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="panel panel-back noti-box">
+              <span class="icon-box bg-color-green set-icon">
+                  <i class="fa fa-bars"></i>
+              </span>
+
+              <div class="text-box" >
+                  <p class="main-text"><%= count %> Users</p>
+                  <p class="text-muted">Registered</p>
+              </div>
+           </div>
+       </div>
+                  <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="panel panel-back noti-box">
+              <span class="icon-box bg-color-blue set-icon">
+                  <i class="fa fa-bell-o"></i>
+              </span>
+              <div class="text-box" >
+                  <p class="main-text">240 New</p>
+                  <p class="text-muted">Notifications</p>
+              </div>
+           </div>
+       </div>
+                  <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="panel panel-back noti-box">
+              <span class="icon-box bg-color-brown set-icon">
+                  <i class="fa fa-rocket"></i>
+              </span>
+              <div class="text-box" >
+                  <p class="main-text"><%= order_count %> Orders</p>
+                  <p class="text-muted">Pending</p>
+              </div>
+           </div>
+       </div>
+    </div>
+               <!-- /. ROW  -->
+              <hr />
+
+               <!-- /. ROW  -->
+
+              <div class="row" >
+
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                         Pending Orders
+                      </div>
+                      <div class="panel-body">
+                        <% if(orders.length <1) { %>
+                       <h3>There are no pending orders</h3>
+                          <% }else{ %>
+                          <div class="table-responsive">
+                              <table class="table table-striped table-bordered table-hover">
+                                  <thead>
+                                      <tr>
+                                          <th>#</th>
+                                          <th>Date</th>
+                                          <th>Code</th>
+                                          <th>Amount</th>
+                                           <th>User</th>
+                                           <th>Status</th>
+                                           <th>Action</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    <% for(i=0; i<orders.length; i++) { %>
+                                      <tr>
+                                          <td><%= i+1 %></td>
+                                          <td><%= orders[i].date %></td>
+                                          <td>KES <%= orders[i].code %></td>
+                                          <td><%= orders[i].amount %></td>
+                                          <td><%= orders[i].phoneno %></td>
+                                          <td><%= orders[i].status %></td>
+                                          <td><a class="btn btn-primary" data-toggle="modal" data-target="#<%= orders[i].id %>" >Update</a></td>
+
+                                      </tr>
+                                      <% } %>
+                                  </tbody>
+                              </table>
+                          </div>
+                          <% } %>
+                      </div>
+                  </div>
+
+                  </div>
+              </div>
+
+              <!-- Modal start -->
+              <% for(i=0; i<orders.length; i++) { %>
+              <div class="modal fade" id="<%= orders[i].id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <form id="contact-form" method="POST" action="/token/confirm/<%= orders[i].id %>/<%= orders[i].user %>">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Modal title Here</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="modal-body">
+                                        <div class="form-group">
+                                         <span class="input-group-addon">MPESA CODE</span>
+                                         <span class="input-group-addon"><%= orders[i].code %></span>
+
+                                         </div>
+                                         <div class="form-group input-group">
+                                          <span class="input-group-addon">CONFIRM AMOUNT</span>
+                                          <input type="text" name="amount" class="form-control" required="true">
+                                          <span class="input-group-addon">.00</span>
+                                          </div>
+                                        <div class="form-group input-group">
+                                         <span class="input-group-addon">ASSIGN TOKENS</span>
+                                         <input type="text" name="tokens" class="form-control" required="true">
+
+                                     </div>
+                                      </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+              <!-- Modal Ends -->
+
+  </div>
+           <!-- /. PAGE INNER  -->
+          </div>
+       <!-- /. PAGE WRAPPER  -->
+      </div>
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <% include ../partials/admin-scripts %>
+
+
+</body>
+</html>

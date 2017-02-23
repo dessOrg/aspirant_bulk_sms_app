@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<% include ../partials/head.ejs %>
+<body >
+<!-- [ LOADERs ]
+================================================================================================================================-->
+
+<!-- [ /PRELOADER ]
+=============================================================================================================================-->
+<!-- [WRAPPER ]
+=============================================================================================================================-->
+<div class="wrapper">
+
+  <!-- [/Signup]
+ =============================================================================================================================-->
+
+  <section class="why-love theme_background_color" id="si">
+      <div class="overlay">
+    <div class="container">
+              <div class="row">
+               <!-- /contact info -->
+               <div class="col-md-12 col-sm-12 col-xs-12">
+                  <a class="navbar-brand" href="/">HOME<span class="black"></span></a>
+               </div>
+             </div>
+
+             <div class="row text-center">
+                 <div class="WhyLove-heading text-center">
+
+                     <h2 class="sectionTitle">Sign Up Here</h2>
+                 </div>
+             </div>
+             <div class="row">
+ 							<!-- /contact info -->
+ 							<div class="col-md-12 col-sm-12 col-xs-12">
+ 								<!-- contact form -->
+ 								<form id="contact-form" method="POST" action="/admin/signup">
+ 									<div class="row form-group">
+ 										<div class="col-xs-6">
+ 											<input type="text" name="firstname" placeholder="First Name" id="first-name" class="form-control">
+ 											<input type="text" name="username" placeholder="Username" id="username" class="form-control">
+ 											<input type="text" name="phoneno" placeholder="Mobile No" id="phone-no" class="form-control">
+ 										</div>
+ 										<div class="col-xs-6">
+ 											<input type="text" name="lastname" placeholder="Last Name" id="last-name" class="form-control">
+ 											<div class="form-control" name="gender"><label class="radio-inline"><input type="radio" name="gender" value="Male">Male</label>
+ 											<label class="radio-inline"><input type="radio" name="gender" value="Female">Female</label></div>
+
+ 											<input type="email" name="email" placeholder="e-mail" id="contact-email" class="form-control ">
+ 										</div>
+ 									</div>
+
+ 									<div class="row form-group">
+ 										<div class="col-xs-6">
+
+ 											<input type="password" name="password" placeholder="Password should Be 8 characters" id="password" class="form-control">
+ 										</div>
+ 										<div class="col-xs-6">
+
+ 										<input type="password" name="password2" placeholder="Confirmation Password" id="confirm" class="form-control ">
+ 										</div>
+ 									</div>
+ 									<button type="submit" class="btn btn-style blue">Submit</button>
+ 								 <span class="form-message" style="display: none;"></span>
+ 								</form>
+ 								<!-- /contact form -->
+ 							</div>
+             </div>
+         </div>
+
+      </div>
+
+  </section>
+  <!-- [/Signup] -->
+</div>
+</body>
+</html>
