@@ -161,16 +161,17 @@ module.exports = function(app) {
       var status = "confirmed";
       var phoneno = req.params.phoneno;
       var tokens = req.body.tokens;
+      var plan = req.body.plan;
 
       var order = new Order();
       order._id = req.params.order_id;
-      order.update({status:status,amount:amount,tokens:tokens}, function(err, order){
+      order.update({status:status,amount:amount,plan:plan,tokens:tokens}, function(err, order){
         if(err) return err;
 
         Balance.find({user:user},function(err, tokens){
           if(err) return err;
 
-          var token_bal = parseInt(amount);
+          var token_bal = parseInt(tokens);
           var token_id = "";
           for(i=0; i<tokens.length; i++){
              token_id = tokens[i]._id;

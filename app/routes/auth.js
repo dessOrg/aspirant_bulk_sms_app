@@ -1,6 +1,12 @@
 var User = require('../models/user');
 var Balance = require('../models/tokens');
 var passport = require('passport');
+var base64url = require('base64url');
+var multer = require('multer');
+var fs = require('fs');
+var pictures = multer({});
+
+var upload = multer({ dest: 'uploads/' });
 
 module.exports = function(app) {
 
@@ -10,7 +16,7 @@ module.exports = function(app) {
   })
 
   app.post('/signup', function(req, res){
-    var firstname=req.body.firstname;
+      var firstname=req.body.firstname;
       var lastname=req.body.lastname;
       var username=req.body.nickname;
       var gender=req.body.gender;
@@ -109,6 +115,84 @@ module.exports = function(app) {
     }
 
   });
+
+  app.post('/image/update', upload.single('image'), function(req, res){
+
+    var user = req.user;
+    var image = req.image;
+    var tmp_path = req.file.path;
+
+   /** The original name of the uploaded file
+       stored in the variable "originalname". **/
+   var target_path = 'uploads/' + req.file.originalname;
+   /** A better way to copy the uploaded file. **/
+   var src = fs.createReadStream(tmp_path);
+   var dest = fs.createWriteStream(target_path);
+   src.pipe(dest);
+   fs.unlink(tmp_path); //deleting the tmp_path
+
+
+     var id = user.id;
+     console.log(id);
+     User.findById(id, function(err, user){
+       if(err) return err;
+
+       user._id = user.id;
+       user.picture = target_path;
+       user.save(function(err, user){
+         if(err) return err;
+
+         console.log(user);
+
+         req.flash('success_msg', "Profile image uploaded");
+         res.redirect('/dashboard');
+       })
+
+
+     })
+
+  })
+
+  app.post('/user/update/:id', function(req, res){
+    var firstname=req.body.firstname;
+    var lastname=req.body.lastname;
+    var username=req.body.username;
+    var gender=req.body.gender;
+    var email=req.body.email;
+    var phoneno=req.body.phoneno;
+    var post=req.body.post;
+    var county=req.body.county;
+    var constituency=req.body.constituency;
+    var ward=req.body.ward;
+    var slogan=req.body.slogan;
+    var party=req.body.party;
+    var bio=req.body.bio;
+
+
+      var user = new User();
+      user._id = req.params.id,
+
+
+      user.update({firstname:firstname,
+      lastname: lastname,
+      username: username,
+      gender: gender,
+      email : email,
+      phoneno: phoneno,
+      post : post,
+      constituency: constituency,
+      ward : ward,
+      county : county,
+      slogan: slogan,
+      bio : bio},function(err, user){
+        if(err) return err;
+
+        console.log(user);
+        res.redirect('/admin/form');
+    })
+
+
+  })
 
   app.get('/login', function(req,res){
     res.render("pages/login.ejs", {message:null})

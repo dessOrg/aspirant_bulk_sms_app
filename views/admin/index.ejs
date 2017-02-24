@@ -100,7 +100,11 @@
                                           <td><%= i+1 %></td>
                                           <td><%= orders[i].date %></td>
                                           <td>KES <%= orders[i].code %></td>
-                                          <td><%= orders[i].amount %></td>
+                                          <td><% if(orders[i].amount){ %>
+                                            KES <%= orders[i].amount %>
+                                            <%}else {%>
+                                              -
+                                              <%} %></td>
                                           <td><%= orders[i].phoneno %></td>
                                           <td><%= orders[i].status %></td>
                                           <td><a class="btn btn-primary" data-toggle="modal" data-target="#<%= orders[i].id %>" >Update</a></td>
@@ -134,6 +138,17 @@
                                          <span class="input-group-addon"><%= orders[i].code %></span>
 
                                          </div>
+                                         <div class="form-group input-group">
+                                          <span class="input-group-addon">CONFIRM PLAN</span>
+                                          <select class="form-control" id="plan" name="plan" >
+                                            <option value="<%= orders[i].plan %>"><%= orders[i].plan %></option>
+                                            <option value="Custom">Custom Plan</option>
+                                            <option value="Basic">Basic Plan</option>
+                                            <option value="Premier">Premier Plan</option>
+                                            <option value="Executive">Executive Plan</option>
+
+                                          </select>
+                                      </div>
                                          <div class="form-group input-group">
                                           <span class="input-group-addon">CONFIRM AMOUNT</span>
                                           <input type="text" name="amount" class="form-control" required="true">

@@ -415,8 +415,8 @@ font-weight: 900;
 .bigFont
 {
     color: white;
-    font-size:4.5em;
-    line-height: 80px;
+    font-size:4.0em;
+    line-height: 60px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }

@@ -46,9 +46,14 @@
                                         <input type="text" name="code" class="form-control" placeholder="e.g LBG65RMS42"required="true">
                                         </div>
                                        <div class="form-group input-group">
-                                        <span class="input-group-addon">KES</span>
-                                        <input type="text" name="amount" class="form-control" required="true">
-                                        <span class="input-group-addon">.00</span>
+                                        <span class="input-group-addon">SELECT PLAN</span>
+                                        <select class="form-control" id="plan" name="plan" >
+                                          <option value="Custom">Custom Plan (1 Token per KES 1.5000)</option>
+                                          <option value="Basic">Basic Plan</option>
+                                          <option value="Premier">Premier Plan</option>
+                                          <option value="Executive">Executive Plan</option>
+
+                                        </select>
                                     </div>
                                      </div>
                                      <div class="modal-footer">
@@ -87,7 +92,7 @@
                   <div class="col-md-3 col-sm-6 col-xs-6">
     <div class="panel panel-back noti-box">
               <span class="icon-box bg-color-blue set-icon">
-                  <i class="fa fa-bell-o"></i>
+                  <i class="fa fa-money"></i>
               </span>
               <div class="text-box" >
                 <% for(i=0; i<tokens.length; i++) { %>
@@ -110,26 +115,65 @@
        </div>
     </div>
                <!-- /. ROW  -->
+
+                 <!-- /. ROW  -->
+                <hr />
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                      <div class="panel text-center no-boder " style="background-color:silver">
+
+                             <i class="fa fa-comments-o fa-5x"></i><strong> &nbsp;Basic Plan</strong>
+                             <h4>Get 1000 Tokens </h4>
+                              <h4>For KES 1400 Only  </h4>
+                              <div class="panel-footer back-footer-green">
+                           <a class="btn btn-success back-footer-green" data-toggle="modal" data-target="#token" >Get This Plan</a>
+                         </div>
+                     </div>
+		     </div>
+
+
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                      <div class="panel ">
+                      <div class="main-temp-back">
+                        <div class="panel-body">
+                           <i class="fa fa-link fa-3x"></i><strong> &nbsp; Premier Plan</strong>
+                           <h4>Get 5000 Tokens </h4>
+                            <h4>For KES 6500 Only  </h4>
+
+
+                        </div>
+                        <div class="panel-footer back-footer-green">
+                     <a class="btn btn-success back-footer-green" data-toggle="modal" data-target="#token" >Get This Plan</a>
+                   </div>
+                      </div>
+
+                   </div>
+
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12 ">
+
+                      <div class="panel main-temp-back" style="background-color:brown">
+                        <div class="panel-body">
+                             <i class="fa fa-check fa-2x"></i><strong> &nbsp; Executive Plan</strong>
+                             <h4>Get 10000 Tokens </h4>
+                              <h4>For KES 12000 Only  </h4>
+                              </div>
+                              <div class="panel-footer back-footer-green">
+                           <a class="btn btn-success back-footer-green" data-toggle="modal" data-target="#token" >Get This Plan</a>
+                         </div>
+                      </div>
+
+    </div>
+
+        </div>
+                 <!-- /. ROW  -->
               <hr />
 
 
                <!-- /. ROW  -->
               <div class="row" >
-                  <div class="col-md-3 col-sm-12 col-xs-12">
-<div class="panel panel-primary text-center no-boder bg-color-green">
-                      <div class="panel-body">
-                          <i class="fa fa-comments-o fa-5x"></i>
-                          <h4>Get In Touch </h4>
-                           <h4>For More Details  </h4>
-                      </div>
-                      <div class="panel-footer back-footer-green">
-                           <i class="fa fa-rocket fa-5x"></i>
-                          Lipa Na MPESA Services is comming soon. To buy tokens : Send money via mpesa to the given number ,then update mpesa code on Purchase token modal.
 
-                      </div>
-                  </div>
-                  </div>
-                  <div class="col-md-9 col-sm-12 col-xs-12">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
 
                   <div class="panel panel-default">
                       <div class="panel-heading">
@@ -142,6 +186,7 @@
                                       <tr>
                                           <th>#</th>
                                           <th>Mpesa Code</th>
+                                          <th>Plan</th>
                                           <th>Tokens</th>
                                           <th>Cost</th>
                                           <th>Date</th>
@@ -154,12 +199,17 @@
                                       <tr>
                                           <td><%= i+1 %></td>
                                           <td><%= orders[i].code %></td>
+                                          <td><%= orders[i].plan %></td>
                                           <td><% if(orders[i].tokens){ %>
                                             <%= orders[i].tokens %>
                                           <%}else {%>
                                             -
                                             <%} %></td>
-                                          <td>KES <%= orders[i].amount %></td>
+                                          <td><% if(orders[i].amount){ %>
+                                            KES <%= orders[i].amount %>
+                                            <%}else {%>
+                                              -
+                                              <%} %></td>
                                           <td><%= orders[i].date %></td>
                                           <td><%= orders[i].status %></td>
 

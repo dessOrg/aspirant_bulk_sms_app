@@ -10,6 +10,9 @@ var orderSchema = mongoose.Schema({
   amount : {
     type : String
   },
+  plan : {
+    type : String
+  },
   tokens : {
     type :  String
   },

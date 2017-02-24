@@ -48,7 +48,7 @@ module.exports = function(app) {
     app.post('/token/order', function(req, res){
 
       var user = req.user;
-      var amount = req.body.amount;
+      var plan = req.body.plan;
       var status = "pending";
       var code = req.body.code;
       var date = Date();
@@ -65,7 +65,7 @@ module.exports = function(app) {
           var order = new Order();
           order.user = user;
           order.code = code;
-          order.amount = amount;
+          order.plan = plan;
           order.status = status;
           order.date = date;
           order.phoneno = user.phoneno;
@@ -96,11 +96,12 @@ module.exports = function(app) {
     })
     })
 
-    app.get("/form", isLoggedIn, function(req, res) {
+    app.get("/admin/form", isLoggedIn, function(req, res) {
       var messages = ''
       Balance.find({user:req.user}, function(err, tokens){
         if(err) return err;
-      res.render("dashboard/form.ejs", {tokens:tokens} );
+
+       res.render("dashboard/form.ejs", {tokens:tokens} );
     })
     })
 

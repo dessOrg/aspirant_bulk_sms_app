@@ -51,21 +51,21 @@
                <!-- contact form -->
                <form id="contact-form" method="POST" action="/signup">
                  <div class="row form-group">
-                   <div class="col-xs-6">
+                   <div class="col-md-6 col-sm-6 col-xs-12">
                      <input type="text" name="firstname" placeholder="First Name" id="first-name" class="form-control" required="true">
-                     <input type="text" name="nickname" placeholder="Campaign Name" id="nick-name" class="form-control"  required="true">
-                     <input type="text" name="phoneno" placeholder="Mobile No" id="phone-no" class="form-control" required="true">
-                   </div>
-                   <div class="col-xs-6">
                      <input type="text" name="lastname" placeholder="Last Name" id="last-name" class="form-control" required="true">
                      <div class="form-control" name="gender"><label class="radio-inline"><input type="radio" name="gender" value="Male">Male</label>
                      <label class="radio-inline"><input type="radio" name="gender" value="Female">Female</label></div>
 
+                   </div>
+                   <div class="col-md-6 col-sm-6 col-xs-12">
+                     <input type="text" name="nickname" placeholder="Campaign Name" id="nick-name" class="form-control" >
+                     <input type="text" name="phoneno" placeholder="Mobile No" id="phone-no" class="form-control" required="true">
                      <input type="email" name="email" placeholder="e-mail" id="contact-email" class="form-control " required="true">
                    </div>
                  </div>
                  <div class="row form-group">
-                   <div class="col-xs-6">
+                   <div class="col-md-6 col-sm-6 col-xs-12">
                      <div class="">
                       <label for="pos">Select Poll Position:</label>
                       <select class="form-control" id="pos" name="post" style="background-color : #206020">
@@ -76,30 +76,29 @@
                         <option  value="Mca">McA</option>
                       </select>
                     </div>
-                     <input type="text" name="constituency" placeholder="Constituency" id="constituency" class="form-control"  required="true">
+                    <div class="">
+                     <label for="county">Select County:</label>
+                     <select class="form-control" id="county" name="county" style="background-color : #206020">
+                       <option value="Nairobi">Nairobi</option>
+                       <option value="Mombasa">Mombasa</option>
+                       <option value="Kericho">Kericho</option>
+                       <option value="Nakuru">Nakuru</option>
+                     </select>
                    </div>
-                   <div class="col-xs-6">
 
-                     <div class="">
-                      <label for="county">Select County:</label>
-                      <select class="form-control" id="county" name="county" style="background-color : #206020">
-                        <option value="Nairobi">Nairobi</option>
-                        <option value="Mombasa">Mombasa</option>
-                        <option value="Kericho">Kericho</option>
-                        <option value="Nakuru">Nakuru</option>
-                      </select>
-                    </div>
-
-                     <input type="text" name="ward" placeholder="Ward" id="ward" class="form-control "  required="true">
+                   </div>
+                   <div class="col-md-6 col-sm-6 col-xs-12">
+                    <br><input type="text" name="constituency" placeholder="Constituency" id="constituency" class="form-control"  required="true">
+                   <br><input type="text" name="ward" placeholder="Ward" id="ward" class="form-control "  required="true">
                    </div>
                  </div>
 
                  <div class="row form-group">
-                   <div class="col-xs-6">
+                   <div class="col-md-6 col-sm-6 col-xs-12">
 
                      <input type="password" name="password" placeholder="Password should Be 8 characters" id="password" class="form-control"  required="true">
                    </div>
-                   <div class="col-xs-6">
+                   <div class="col-md-6 col-sm-6 col-xs-12">
 
                    <input type="password" name="password2" placeholder="Confirmation Password" id="confirm" class="form-control "  required="true">
                    </div>

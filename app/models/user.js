@@ -13,6 +13,18 @@ var UserSchema = mongoose.Schema({
   firstname : {
     type :  String
   },
+  gender : {
+    type :  String
+  },
+  party : {
+    type :  String
+  },
+  slogan : {
+    type :  String
+  },
+  bio : {
+    type :  String
+  },
   email : {
     type : String
   },
@@ -29,6 +41,9 @@ var UserSchema = mongoose.Schema({
     type : String
   },
   post : {
+    type : String
+  },
+  picture : {
     type : String
   },
   role :{

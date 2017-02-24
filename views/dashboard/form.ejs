@@ -11,58 +11,217 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>Contacts Registrations</h2>
+                     <h2>Profile Section</h2>
 
                     </div>
                 </div>
                  <!-- /. ROW  -->
                  <hr />
+                 <form method="post" action="/user/update/<%= user.id %>" >
                <div class="row">
-                 <div class="col-md-2"></div>
-                <div class="col-md-8">
+                 <div class="col-md-6">
+                   <!-- Form Elements -->
+                   <div class="panel panel-default">
+                       <div class="panel-heading">
+                           Personal Info:
+                       </div>
+                       <div class="panel-body">
+                         <form method="post" action="/contact/new" >
+                           <div class="row">
+
+                               <div class="col-md-12">
+
+                                       <div class="form-group  input-group ">
+                                           <span class="input-group-addon">FIRST NAME</span>
+                                           <input class="form-control" type="text" name="firstname" value="<%= user.firstname %>"/>
+                                       </div>
+                                       <div class="form-group  input-group ">
+                                           <span class="input-group-addon">LAST NAME</span>
+                                           <input class="form-control" type="text" name="lastname" value="<%= user.lastname %>"/>
+                                       </div>
+                                       <div class="form-group  input-group ">
+                                           <span class="input-group-addon">GENDER</span>
+                                           <input class="form-control" type="text" name="gender" value="<%= user.gender %>"/>
+                                       </div>
+
+                               </div>
 
 
+                           </div>
 
+
+                       </div>
+                   </div>
+                    <!-- End Form Elements -->
+                 </div>
+                <div class="col-md-6">
                     <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Create New Contact:
+                            Contacts:
                         </div>
                         <div class="panel-body">
-                          <form method="post" action="/contact/new" >
+
                             <div class="row">
 
                                 <div class="col-md-12">
 
-                                        <div class="form-group required">
-                                            <label>First Name:</label>
-                                            <input class="form-control" type="text" name="firstname" placeholder="" required="true"/>
+                                      <div class="form-group  input-group ">
+                                      <span class="input-group-addon">MOBILE NO</span>
+                                            <input class="form-control" type="text" name="phoneno" value="<%= user.phoneno %>"/>
                                         </div>
-                                        <div class="form-group required">
-                                            <label>Last Name:</label>
-                                            <input class="form-control" type="text" name="lastname" />
+                                        <div class="form-group  input-group ">
+                                            <span class="input-group-addon">EMAIL</span>
+                                            <input class="form-control" type="email" name="email" value="<%= user.email %>"/>
                                         </div>
-                                        <div class="form-group required">
-                                            <label>Mobile No:</label>
-                                            <input class="form-control" type="text" name="phoneno" placeholder="Phone Number should begin with +2547" required="true" />
-                                        </div>
+
 
                                 </div>
 
 
-                            </div>
+                            </div><br>
                             <div class="row">
-                              <div class="col-lg-offset-4 col-lg-6">
-                              <input class="btn btn-success" type="submit" value="Save">
-                              <input class="btn btn-primary" type="reset" value="Reset">
+                              <div class="col-lg-offset-7 col-lg-4">
+                              <button class="btn btn-default" type="submit"><i class=" fa fa-refresh "></i>Save Changes</button>
                             </div>
                             </div>
-                            </form>
+
                         </div>
                     </div>
                      <!-- End Form Elements -->
                 </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                  <!-- Form Elements -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                          Political Info:
+                      </div>
+                      <div class="panel-body">
+
+                          <div class="row">
+
+                              <div class="col-md-6">
+
+                                    <div class="form-group  input-group ">
+                                    <span class="input-group-addon">Campaign Name</span>
+                                          <input class="form-control" type="text" name="username" value="<%= user.username %>"/>
+                                      </div>
+                                      <div class="form-group  input-group ">
+                                          <span class="input-group-addon">Party</span>
+                                          <% if(user.party) { %>
+                                          <input class="form-control" type="text" name="party" value="<%= user.party %>"/>
+                                          <% }else{ %>
+                                            <input class="form-control" type="text" name="party" placeholder="Update Party"  style="border-color:red"/>
+                                            <% } %>
+                                      </div>
+                                      <div class="form-group  input-group ">
+                                          <span class="input-group-addon">Poll Post</span>
+                                          <select class="form-control" id="pos" name="post" >
+                                            <option  value="<%= user.post %>"><%= user.post %></option>
+                                            <option  value="Governor">Governor</option>
+                                            <option  value="Senator">Senator</option>
+                                            <option  value="MP">Member Of Parliament</option>
+                                            <option  value="Women-Rep">Women Rep</option>
+                                            <option  value="Mca">McA</option>
+                                          </select>
+                                      </div>
+                                      <div class="form-group  input-group ">
+                                          <span class="input-group-addon">Slogan</span>
+                                          <% if(user.slogan) { %>
+                                          <input class="form-control" type="text" name="slogan" value="<%= user.slogan %>"/>
+                                          <% }else{ %>
+                                            <input class="form-control" type="text" name="slogan"  placeholder="Update Slogan" style="border-color:red"/>
+                                            <% } %>
+                                      </div>
+
+
+                              </div>
+                              <div class="col-md-6">
+
+                                    <div class="form-group  input-group ">
+                                    <span class="input-group-addon">County</span>
+                                    <select class="form-control" id="county" name="county" >
+                                      <option value="<%= user.county %>"><%= user.county %></option>
+                                      <option value="Nairobi">Nairobi</option>
+                                      <option value="Mombasa">Mombasa</option>
+                                      <option value="Kericho">Kericho</option>
+                                      <option value="Nakuru">Nakuru</option>
+                                    </select>
+                                      </div>
+                                      <div class="form-group  input-group ">
+                                          <span class="input-group-addon">Constituency</span>
+                                          <input class="form-control" type="text" name="constituency" value="<%= user.constituency %>"/>
+                                      </div>
+                                      <div class="form-group  input-group ">
+                                          <span class="input-group-addon">Ward</span>
+                                          <input class="form-control" type="text" name="ward" value="<%= user.ward %>"/>
+                                      </div>
+
+                                      <div class="row">
+                                        <div class="col-lg-offset-7 col-lg-3">
+                                        <button class="btn btn-default" type="submit"><i class=" fa fa-refresh "></i>Save Changes</button>
+                                      </div>
+                                      </div>
+
+                              </div>
+
+
+                          </div>
+
+
+                      </div>
+                  </div>
+                   <!-- End Form Elements -->
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+                <!-- Form Elements -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Bio Section:
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-md-offset-2 col-md-8">
+
+                                  <p></p>
+                                  <div class="form-group  input-group ">
+                                        <span class="input-group-addon"></span>
+                                          <% if(user.bio) { %>
+                                        <textarea name="bio" class="form-control" rows="4" placeholder="Introduce Yourself. Talk about you education background ,both proffessional and political life and about you in general" value="<%= user.bio %>"></textarea>
+                                        <% }else{ %>
+                                        <textarea name="bio" class="form-control" rows="4" placeholder="Introduce Yourself. Talk about you education background ,both proffessional and political life and about you in general" value="" style="border-color:red"></textarea>
+                                          <% } %>
+                                    </div>
+                                    </div>
+
+                                    <div class="row">
+                                      <div class="col-lg-offset-7 col-lg-3">
+                                      <button class="btn btn-default" type="submit"><i class=" fa fa-refresh "></i>Save Changes</button>
+                                    </div>
+                                    </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+                 <!-- End Form Elements -->
+            </div>
+        </div>
+
+            </form>
+            <!-- /. End of update section  -->
 
     </div>
              <!-- /. PAGE INNER  -->
