@@ -90,6 +90,8 @@ module.exports = function(app) {
         Log.find({user:user}, function(err, logs){
           if(err) return err;
 
+          console.log(logs)
+
           res.render("dashboard/chart.ejs", {tokens:tokens, logs:logs});
         })
 
