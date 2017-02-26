@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<% include ../partials/head.ejs %>
+<body >
+<!--
+=============================================================================================================================-->
+<!-- [WRAPPER ]
+=============================================================================================================================-->
+<div class="wrapper">
+  <!-- [NAV]-->
+<!--  ============================================================================================================================-->
+    <!-- Navigation-->
+     <!--==========================================-->
+     <% include ../partials/nav.ejs %>
+
+    <!-- [/NAV]-->
+  <!--============-->
+
+  <section class="why-love theme_background_color" id="">
+      <div class="overlay">
+    <div class="container" >
+             <% for(i=0; i<aspirant.length; i++) { %>
+               <br><div class="row">
+                <!-- /contact info -->
+                  <div class="col-md-offset-1 col-md-2 col-sm-12 col-xs-12">
+
+                     <img src="<%= aspirant[i].picture %>" class="user-image img-responsive"/>
+                  </div>
+                  <div class="col-md-6 col-sm-12 col-xs-12" >
+                    <div class="row">
+                      <div class="col-md-6 col-sm-12 col-xs-12" >
+                       First Name <strong>&nbsp;&nbsp;<%= aspirant[i].firstname %></strong>
+                      </div>
+                      <div class="col-md-6 col-sm-12 col-xs-12" >
+                       Last Name <strong>&nbsp;&nbsp;<%= aspirant[i].lastname %></strong>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 col-sm-12 col-xs-12" >
+                       NickName <strong>&nbsp;&nbsp;<%= aspirant[i].username %></strong>
+                      </div>
+                      <div class="col-md-6 col-sm-12 col-xs-12" >
+                       Gender <strong>&nbsp;&nbsp;<%= aspirant[i].gender %></strong>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 col-sm-12 col-xs-12" >
+                       Docket <strong>&nbsp;&nbsp;<%= aspirant[i].post %></strong>
+                      </div>
+                      <div class="col-md-6 col-sm-12 col-xs-12" >
+                       County <strong>&nbsp;&nbsp;<%= aspirant[i].county %></strong>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 col-sm-12 col-xs-12" >
+                       Constituency <strong>&nbsp;&nbsp;<%= aspirant[i].constituency %></strong>
+                      </div>
+                      <div class="col-md-6 col-sm-12 col-xs-12" >
+                       Ward <strong>&nbsp;&nbsp;<%= aspirant[i].ward %></strong>
+                      </div>
+                    </div>
+
+
+                   </div>
+
+                   <div class="col-md-3 col-sm-12 col-xs-12">
+                     <div><img src="<%= aspirant[i].party_logo %>" class="user-image img-responsive"/></div>
+                     <div>Party<strong>&nbsp;&nbsp;<%= aspirant[i].party %></strong></div>
+                   </div>
+
+              </div>
+              <% } %>
+              <hr>
+
+      </div>
+      </div>
+
+  </section>
+  <!-- [/Login]
+=============================================================================================================================-->
+<!-- [FOOTER]
+=============================================================================================================================-->
+<% include ../partials/footer.ejs %>
+
+<!-- [/FOOTER]
+=============================================================================================================================-->
+
+
+</div>
+<% include ../partials/script.ejs %>
+</body>
+</html>

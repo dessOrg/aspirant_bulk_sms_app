@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<% include ../partials/head.ejs %>
+<body >
+<!-- [ LOADERs ]
+================================================================================================================================-->
+
+<!-- [ /PRELOADER ]
+=============================================================================================================================-->
+<!-- [WRAPPER ]
+=============================================================================================================================-->
+<div class="wrapper">
+  <!-- [NAV]-->
+<!--  ============================================================================================================================-->
+    <!-- Navigation-->
+     <!--==========================================-->
+     <% include ../partials/nav.ejs %>
+
+    <!-- [/NAV]-->
+  <!--============-->
+
+  <section class="why-love theme_background_color" id="">
+      <div class="overlay">
+    <div class="container">
+
+               <br><div class="row">
+                 <div class="WhyLove-heading text-center">
+
+                     <h2 class="sectionTitle">ASPIRANTS PORTAL</h2>
+                 </div>
+                  <!-- /contact info -->
+                  <form id="contact-form" method="POST" action="/search">
+                  <div class="col-md-offset-2 col-md-3 col-sm-12 col-xs-12">
+                    <div class="">
+                     <select class="form-control" id="pos" name="post" required="true" style="background-color : #206020">
+                       <option  value="">Select Docket</option>
+                       <option  value="All">All</option>
+                       <option  value="Governor">Governor</option>
+                       <option  value="Senator">Senator</option>
+                       <option  value="MP">Member Of Parliament</option>
+                       <option  value="Women-Rep">Women Rep</option>
+                       <option  value="Mca">McA</option>
+                     </select>
+                   </div>
+                  </div>
+                  <div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="">
+                     <select class="form-control" id="county" required="true" name="county" style="background-color : #206020">
+                       <option value="">Select County</option>
+                       <option  value="All">All</option>
+                       <option value="Nairobi">Nairobi</option>
+                       <option value="Mombasa">Mombasa</option>
+                       <option value="Kericho">Kericho</option>
+                       <option value="Nakuru">Nakuru</option>
+                     </select>
+                   </div>
+                  </div>
+                   <div class="col-md-3 col-sm-12 col-xs-12">
+                     <button type="submit" class="btn btn-style blue">Search</button>
+                   </div>
+                   </form>
+              </div>
+              <br>
+
+             <div class="row" >
+                            <!-- /contact info -->
+                            <div class="col-md-12 col-sm-12 col-xs-12" >
+                              <!-- Form Elements -->
+                              <div class="panel panel-default" style="background-color:#206020">
+
+                                  <div class="panel-body" >
+                                      <div class="table-responsive" >
+                                        <% if(aspirants.length==0){ %>
+                                          <h2 style="color:green">There are no registered Aspirants currently</h2>
+                                        <% }else{ %>
+                                          <table class="table" >
+                                              <thead>
+                                                  <tr>
+                                                      <th>#</th>
+                                                      <th>First Name</th>
+                                                      <th>Last Name</th>
+                                                      <th>Nickname</th>
+                                                      <th>Docket</th>
+                                                      <th>County</th>
+                                                      <th>Constituency</th>
+                                                      <th>Ward</th>
+                                                      <th>Action</th>
+
+                                                  </tr>
+                                              </thead>
+                                              <tbody >
+
+                                                <% for(i=0; i<aspirants.length; i++) { %>
+                                                  <tr class="">
+                                                      <td><%= i+1 %></td>
+                                                      <td><%= aspirants[i].firstname %></td>
+                                                      <td><%= aspirants[i].lastname %></td>
+                                                      <td><%= aspirants[i].username %></td>
+                                                      <td><%= aspirants[i].post %></td>
+                                                      <td><%= aspirants[i].county %></td>
+                                                      <td><%= aspirants[i].constituency %></td>
+                                                      <td><%= aspirants[i].ward %></td>
+                                                      <td><a href="/aspirant/view/<%=aspirants[i].id %>" class="btn btn-success">View</a></td>
+
+                                                  </tr>
+                                                 <% } %>
+
+                                              </tbody>
+                                          </table>
+                                          <% } %>
+                                      </div>
+                                  </div>
+
+                              </div>
+                               <!-- End Form Elements -->
+
+                            </div>
+
+
+      </div>
+      </div>
+      </div>
+
+  </section>
+  <!-- [/Login]
+=============================================================================================================================-->
+<!-- [FOOTER]
+=============================================================================================================================-->
+<% include ../partials/footer.ejs %>
+
+<!-- [/FOOTER]
+=============================================================================================================================-->
+
+
+</div>
+<% include ../partials/script.ejs %>
+</body>
+</html>

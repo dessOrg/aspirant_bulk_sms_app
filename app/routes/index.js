@@ -11,6 +11,57 @@ module.exports = function(app) {
     res.render('pages/index.ejs', {message:null});
   });
 
+  app.get('/aspirant', function(req,res){
+
+   User.find({role:"normal"}, function(err, aspirants){
+     if(err) return err;
+
+     res.render('pages/aspirants.ejs', {aspirants:aspirants});
+   })
+
+  });
+
+  app.post('/search', function(req, res){
+    var post = req.body.post;
+    var county = req.body.county;
+
+    if(post == "All" && county == "All"){
+      res.redirect('/aspirant');
+    }else if(post == "All" && county != "All"){
+      User.find({county:county}, function(err, aspirants){
+        if(err) return err;
+
+        res.render('pages/aspirants.ejs', {aspirants:aspirants});
+      })
+    }else if(county == "All" && post != "All"){
+      User.find({post:post}, function(err, aspirants){
+        if(err) return err;
+
+        res.render('pages/aspirants.ejs', {aspirants:aspirants});
+      })
+    }else{
+      User.find({county:county, post:post}, function(err, aspirants){
+        if(err) return err;
+
+        res.render('pages/aspirants.ejs', {aspirants:aspirants});
+      })
+    }
+
+
+  })
+
+  app.get('/aspirant/view/:id', function(req, res){
+    var id = req.params.id;
+    console.log(id);
+
+    User.find({_id:id}, function(err, aspirant){
+      if(err) return err;
+
+      console.log(aspirant);
+      res.render('pages/profile.ejs', {aspirant:aspirant});
+    })
+  })
+
   app.get("/dashboard", isLoggedIn, function(req, res) {
 
      Contact.find({user:req.user}, function(err, contact){
