@@ -23,8 +23,12 @@
                <br><div class="row">
                 <!-- /contact info -->
                   <div class="col-md-offset-1 col-md-2 col-sm-12 col-xs-12">
+                    <% if(aspirant[i].picture) { %>
+                    <div><img src="/<%= aspirant[i].picture %>" class="user-image img-responsive"/></div>
+                    <% }else{ %>
+                    <img src="assets/img/find_user.png" class="user-image img-responsive"/>
+                    <%}%>
 
-                     <img src="/<%= aspirant[i].picture %>" class="user-image img-responsive"/>
                   </div>
                   <div class="col-md-6 col-sm-12 col-xs-12" >
                     <div class="row">
@@ -93,7 +97,11 @@
                    </div>
 
                    <div class="col-md-2 col-sm-12 col-xs-12">
-                     <div><img src="/<%= aspirant[i].picture %>" class="user-image img-responsive"/></div>
+                     <% if(aspirant[i].party_image) { %>
+                     <div><img src="/<%= aspirant[i].party_image %>" class="user-image img-responsive"/></div>
+                     <% }else{ %>
+                     <img src="assets/img/images.png" class="user-image img-responsive" style="height:180px; width : 200px"/>
+                     <%}%>
                      <div>Party<strong>&nbsp;&nbsp;<%= aspirant[i].party %></strong></div>
                    </div>
 
