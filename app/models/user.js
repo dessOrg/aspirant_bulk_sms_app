@@ -19,7 +19,19 @@ var UserSchema = mongoose.Schema({
   party : {
     type :  String
   },
+  party_image : {
+    type :  String
+  },
   slogan : {
+    type :  String
+  },
+  facebook : {
+    type :  String
+  },
+  twitter : {
+    type :  String
+  },
+  linkedin : {
     type :  String
   },
   bio : {

@@ -3,6 +3,7 @@ var Contact = require('../models/contacts');
 var Balance = require('../models/tokens');
 var Log = require('../models/logs');
 var Order = require('../models/orders');
+var Manifesto = require('../models/manifesto');
 
 module.exports = function(app) {
 
@@ -50,15 +51,20 @@ module.exports = function(app) {
 
   })
 
-  app.get('/aspirant/view/:id', function(req, res){
+  app.get('/profile/:id', function(req, res){
     var id = req.params.id;
     console.log(id);
 
     User.find({_id:id}, function(err, aspirant){
       if(err) return err;
 
-      console.log(aspirant);
-      res.render('pages/profile.ejs', {aspirant:aspirant});
+     Manifesto.find({user:id}, function(err, manifestos){
+       if(err) return err;
+
+       console.log(aspirant);
+       res.render('pages/profile.ejs', {aspirant:aspirant, manifestos:manifestos});
+     })
+
     })
   })
 
@@ -154,7 +160,13 @@ module.exports = function(app) {
       Balance.find({user:req.user}, function(err, tokens){
         if(err) return err;
 
-       res.render("dashboard/form.ejs", {tokens:tokens} );
+        Manifesto.find({user:req.user}, function(err, manifestos){
+          if(err) return err;
+          console.log(manifestos);
+          res.render("dashboard/form.ejs", {tokens:tokens,manifestos:manifestos} );
+        })
+
+
     })
     })
 

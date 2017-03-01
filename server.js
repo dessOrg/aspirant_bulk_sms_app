@@ -29,12 +29,13 @@ mongoose.connect(configDB.getDB(env));
 //set static folder.
 app.use(express.static(__dirname + '/assets'));
 app.use('/uploads', express.static('uploads'));
-app.use('/aspirant/view/', express.static('pictures'));
+//app.use('/aspirant/view/', express.static('uploads'));
 app.use('/', express.static(__dirname + '/assets/'));
 app.use('/form', express.static(__dirname + '/assets/'));
 app.use('/admin/signup', express.static(__dirname + '/assets/'));
 app.use('/admin/', express.static(__dirname + '/assets/'));
-app.use('/aspirant/view/', express.static(__dirname + '/assets/'));
+app.use('/aspirant/', express.static(__dirname + '/assets/'));
+app.use('/profile/', express.static(__dirname + '/assets/'));
 
 
 //use ejs-localsfor ejs template

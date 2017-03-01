@@ -110,7 +110,10 @@ if (err) throw err;
             bal_id = balance[i].id;
           }
 
-          if(contacts.length>bal){
+          if(bal<1){
+            req.flash('success_msg', "You have insufficient Tokens");
+            res.redirect('/text');
+          }else if(contacts.length>bal){
 
             for(i=0; i<bal; i++){
 

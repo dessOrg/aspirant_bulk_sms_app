@@ -19,14 +19,13 @@
                  <hr />
                  <form method="post" action="/user/update/<%= user.id %>" >
                <div class="row">
-                 <div class="col-md-6">
+                 <div class="col-md-4">
                    <!-- Form Elements -->
                    <div class="panel panel-default">
                        <div class="panel-heading">
                            Personal Info:
                        </div>
                        <div class="panel-body">
-                         <form method="post" action="/contact/new" >
                            <div class="row">
 
                                <div class="col-md-12">
@@ -54,7 +53,53 @@
                    </div>
                     <!-- End Form Elements -->
                  </div>
-                <div class="col-md-6">
+                 <div class="col-md-4">
+                   <!-- Form Elements -->
+                   <div class="panel panel-default">
+                       <div class="panel-heading">
+                           Social Platforms:
+                       </div>
+                       <div class="panel-body">
+                           <div class="row">
+
+                               <div class="col-md-12">
+
+                                       <div class="form-group  input-group ">
+                                           <span class="input-group-addon">Twitter</span>
+                                           <% if(user.twitter) { %>
+                                           <input class="form-control" type="text" name="twitter" value="<%= user.twitter %>"/>
+                                           <% }else{ %>
+                                            <input class="form-control" type="text" name="twitter" placeholder="Paste your twitter link" value=""/>
+                                             <% } %>
+                                       </div>
+                                       <div class="form-group  input-group ">
+                                           <span class="input-group-addon">Facebook</span>
+                                           <% if(user.facebook) { %>
+                                           <input class="form-control" type="text" name="facebook" value="<%= user.facebook %>"/>
+                                           <% }else{ %>
+                                           <input class="form-control" type="text" name="facebook" placeholder="Paste your facebook link" value=""/>
+                                             <% } %>
+                                       </div>
+                                       <div class="form-group  input-group ">
+                                           <span class="input-group-addon">Linkedin</span>
+                                           <% if(user.linkedin) { %>
+                                           <input class="form-control" type="text" name="linkedin" value="<%= user.linkedin %>"/>
+                                           <% }else{ %>
+                                           <input class="form-control" type="text" name="linkedin" placeholder="Paste your linkedin link" value=""/>
+                                             <% } %>
+                                       </div>
+
+                               </div>
+
+
+                           </div>
+
+
+                       </div>
+                   </div>
+                    <!-- End Form Elements -->
+                 </div>
+                <div class="col-md-4">
                     <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -81,7 +126,7 @@
 
                             </div><br>
                             <div class="row">
-                              <div class="col-lg-offset-7 col-lg-4">
+                              <div class="col-lg-offset-5 col-lg-4">
                               <button class="btn btn-default" type="submit"><i class=" fa fa-refresh "></i>Save Changes</button>
                             </div>
                             </div>
@@ -177,7 +222,9 @@
                    <!-- End Form Elements -->
               </div>
           </div>
-
+        </form>
+        <!-- /. End of update section  -->
+       <form method="post" action="/bio/update/<%= user.id %>" >
           <div class="row">
             <div class="col-md-12">
                 <!-- Form Elements -->
@@ -191,13 +238,15 @@
 
                             <div class="col-md-offset-2 col-md-8">
 
-                                  <p></p>
+                              <% if(user.bio) { %>
+                               <p><%= user.bio %></p>
+                               <% } %>
                                   <div class="form-group  input-group ">
                                         <span class="input-group-addon"></span>
                                           <% if(user.bio) { %>
-                                        <textarea name="bio" class="form-control" rows="4" placeholder="Introduce Yourself. Talk about you education background ,both proffessional and political life and about you in general" value="<%= user.bio %>"></textarea>
+                                        <textarea name="bio" class="form-control" rows="4" ><%= user.bio %></textarea>
                                         <% }else{ %>
-                                        <textarea name="bio" class="form-control" rows="4" placeholder="Introduce Yourself. Talk about you education background ,both proffessional and political life and about you in general" value="" style="border-color:red"></textarea>
+                                        <textarea name="bio" class="form-control" rows="4" placeholder="Introduce Yourself. Talk about you education background ,both proffessional and political life and about you in general"  value="" style="border-color:red"></textarea>
                                           <% } %>
                                     </div>
                                     </div>
@@ -218,10 +267,100 @@
                 </div>
                  <!-- End Form Elements -->
             </div>
-        </div>
+
 
             </form>
             <!-- /. End of update section  -->
+
+            <div class="row">
+              <div class="col-md-8">
+                  <!-- Form Elements -->
+                   <form method="post" action="/manifesto/create/<%= user.id %>" >
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                          Manifesto Section:
+                      </div>
+                      <div class="panel-body">
+
+                          <div class="row">
+
+                              <div class="col-md-offset-2 col-md-8">
+
+                                <% if(manifestos) { %>
+                                  <% for(i=0; i<manifestos.length; i++) { %>
+                                 <div><%= i+1 %>.<%= manifestos[i].title %>&nbsp;&nbsp;<a href="/delete/manifesto/<%=manifestos[i].id %>" class="btn btn-danger">Delete</a></div>
+                                 <% } %>
+                                 <% } %>
+                                 <br>
+                                    <div class="form-group  input-group ">
+                                          <span class="input-group-addon">Add Manifesto</span>
+
+                                          <input name="manifesto" class="form-control" placeholder=""></input>
+
+                                      </div>
+                                      </div>
+
+                                      <div class="row">
+                                        <div class="col-lg-offset-7 col-lg-3">
+                                        <button class="btn btn-default" type="submit"><i class=" fa fa-refresh "></i>Save Changes</button>
+                                      </div>
+                                      </div>
+
+                              </div>
+
+
+                          </div>
+
+
+                      </div>
+                      </form>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Party Logo:
+                        </div>
+                        <div class="panel-body">
+                  <div>
+                    <% if(user.party_image) {%>
+                     <img src="/<%= user.party_image %>" class="user-image img-responsive"/>
+                    <% }else {%>
+                      <img src="assets/img/find_user.png" class="user-image img-responsive"/>
+                    <%}%>
+                    <a class="btn btn-primary" data-toggle="modal" data-target="#logo" >Update Image</a>
+                  </div>
+                  <!-- /. ROW  -->
+                  <div class="modal fade" id="logo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <form id="contact-form" method="POST" action="/party/logo/update" enctype="multipart/form-data">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Upload Image</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                          <div class="form-group input-group">
+                                           <label>File input</label>
+                                           <input type="file" name="image" required="true">
+                                           </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                      </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- modal ends  -->
+                      </div>
+                      </div>
+                  </div>
+                   <!-- End Form Elements -->
+              </div>
+
+            </div>
 
     </div>
              <!-- /. PAGE INNER  -->

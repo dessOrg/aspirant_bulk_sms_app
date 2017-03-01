@@ -36,6 +36,40 @@ module.exports = function(app){
 
  })
 
+ app.post('/contact/new/:id', function(req, res){
+   var user = req.params.id;
+   var firstname = req.body.firstname;
+   var lastname = req.body.lastname;
+   var phoneno = req.body.phoneno;
+    console.log(req.body.firstname)
+   var messages = '';
+
+   Contact.find({user:user, phoneno:phoneno }, function(err, contact){
+     if(err) return err;
+     if(contact.length>0){
+       console.log(contact)
+       req.flash("error_msg", "Phone No already exist")
+       res.redirect('/aspirant')
+     }else{
+     var contact = new Contact();
+          contact.user = user;
+          contact.firstname = firstname;
+          contact.lastname = lastname;
+          contact.phoneno = phoneno;
+          console.log(phoneno)
+        contact.save(function(err, contact){
+          if (err) return err;
+
+          console.log(contact);
+          req.flash("success_msg", "Contact Created Successfully")
+          res.redirect('/aspirant')
+        })
+      }
+   })
+
+})
+
+
  app.get("/table", function(req, res) {
 
       Contact.find({user:req.user}, function(err, contacts){

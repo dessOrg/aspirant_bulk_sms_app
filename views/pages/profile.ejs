@@ -24,9 +24,15 @@
                 <!-- /contact info -->
                   <div class="col-md-offset-1 col-md-2 col-sm-12 col-xs-12">
 
-                     <img src="<%= aspirant[i].picture %>" class="user-image img-responsive"/>
+                     <img src="/<%= aspirant[i].picture %>" class="user-image img-responsive"/>
                   </div>
                   <div class="col-md-6 col-sm-12 col-xs-12" >
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12" >
+                        <h2>&nbsp;Welcome to <%= aspirant[i].firstname %>'s&nbsp;Portal</h2>
+                        <hr>
+                      </div>
+                    </div><br>
                     <div class="row">
                       <div class="col-md-6 col-sm-12 col-xs-12" >
                        First Name <strong>&nbsp;&nbsp;<%= aspirant[i].firstname %></strong>
@@ -59,18 +65,109 @@
                        Ward <strong>&nbsp;&nbsp;<%= aspirant[i].ward %></strong>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-4 col-sm-12 col-xs-12" >
+                        Slogan
+                      </div>
+                      <div class="col-md-8 col-sm-12 col-xs-12" >
+                       <strong>&nbsp;<%= aspirant[i].slogan %></strong>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4 col-sm-12 col-xs-12" >
+                        Follow Me :
+                      </div>
+                      <div class="col-md-8 col-sm-12 col-xs-12" >
+                        <div class="footer-social-icons " >
+
+                            <a href="#"><i class="fa fa-twitter" style="color : blue"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="#"><i class="fa fa-facebook" style="color : blue"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="#"><i class="fa fa-linkedin" style="color : blue"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                        </div>
+                      </div>
+                    </div>
 
 
                    </div>
 
-                   <div class="col-md-3 col-sm-12 col-xs-12">
-                     <div><img src="<%= aspirant[i].party_logo %>" class="user-image img-responsive"/></div>
+                   <div class="col-md-2 col-sm-12 col-xs-12">
+                     <div><img src="/<%= aspirant[i].picture %>" class="user-image img-responsive"/></div>
                      <div>Party<strong>&nbsp;&nbsp;<%= aspirant[i].party %></strong></div>
                    </div>
 
-              </div>
+              </div><br>
+
+              <div class="row">
+               <!-- /contact info -->
+                 <div class="col-md-offset-1 col-md-7 col-sm-12 col-xs-12">
+                   <div class="panel " style="background-color:#206020">
+                     <div class="panel-heading">
+                      Bio
+                     </div>
+                       <div class="panel-body jumbotron" style="background-color:#206020">
+
+                    <div class="" >
+                     <p><%= aspirant[i].bio %></p>
+
+                    </div>
+                 </div>
+               </div>
+             </div>
+                 <div class="col-md-3 col-sm-12 col-xs-12">
+                   <div class="panel " style="background-color:#206020">
+                     <div class="panel-heading" style="background-color:#206020">
+                      Manifesto
+                     </div>
+                       <div class="panel-body" >
+                         <% if(manifestos) { %>
+                     <% for(y=0; y<manifestos.length; y++) { %>
+                    <div ><%= y+1 %>.&nbsp;&nbsp;<%= manifestos[y].title %></div>
+                     <% } %>
+                      <% } %>
+                 </div>
+               </div>
+
+                 </div>
+
+           </div>
+
+          <br> <div class="row">
+            <!-- /contact info -->
+              <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+                <div class="panel " style="background-color:#206020">
+                  <div class="panel-heading">
+                   Add Your Contacts And I will get back to you.
+                  </div>
+                  <form id="contact-form" method="POST" action="/contact/new/<%= aspirant[i].id %>">
+
+                      <div class="modal-body">
+                        <div class="form-group input-group">
+                         <span class="input-group-addon">First Name:</span>
+                         <input type="text" name="firstname" class="form-control" placeholder="Required"  required="true" style="background-color : black; color : white">
+                         </div>
+                         <div class="form-group input-group">
+                          <span class="input-group-addon">Last Name:</span>
+                          <input type="text" name="lastname" class="form-control" placeholder="Optional" style="background-color : black; color : white">
+                          </div>
+                        <div class="form-group input-group">
+                         <span class="input-group-addon">Moblie No:</span>
+                         <input type="text" name="phoneno" class="form-control" placeholder="Should Begin with +2547..." required="true" style="background-color : black; color : white">
+                     </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="reset" class="btn btn-default" >Reset</button>
+                          <button type="submit" class="btn btn-primary">Create</button>
+                      </div>
+                    </form>
+            </div>
+          </div>
+
+
+        </div>
               <% } %>
-              <hr>
+
 
       </div>
       </div>
