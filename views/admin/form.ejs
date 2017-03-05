@@ -11,69 +11,54 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>Rooms Registration Form</h2>
+                     <h2>Aspirants SMS History</h2>
 
                     </div>
                 </div>
                  <!-- /. ROW  -->
                  <hr />
-               <div class="row">
-                <div class="col-md-12">
-                    <!-- Form Elements -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Register New Room:
-                        </div>
-                        <div class="panel-body">
-                          <form method="post" action="/uploads" enctype="multipart/form-data">
-                            <div class="row">
+                 <div class="row">
+                     <div class="col-md-12">
+                         <!-- Advanced Tables -->
+                         <div class="panel panel-default">
+                             <div class="panel-heading">
+                             </div>
+                             <div class="panel-body">
+                                 <div class="table-responsive">
+                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                         <thead>
+                                             <tr>
 
-                                <div class="col-md-6">
+                                               <th>#</th>
+                                               <th>Date</th>
+                                               <th>sms</th>
+                                               <th>receptients</th>
+                                               <th>status</th>
 
-                                        <div class="form-group">
-                                            <label>Room No:</label>
-                                            <input class="form-control" type="text" name="room_no" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Plot No:</label>
-                                            <input class="form-control" type="text" name="plot_no" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Room Type:</label>
-                                            <input class="form-control" type="text" name="room_type" />
-                                        </div>
+                                             </tr>
+                                         </thead>
+                                         <tbody>
+                                           <% for(i=0; i<logs.length; i++) { %>
+                                             <tr>
+                                               <td><%= i+1 %></td>
+                                               <td><%= logs[i].date %></td>
+                                               <td><%= logs[i].sms %></td>
+                                               <td><%= logs[i].number %></td>
+                                               <td><%= logs[i].status %></td>
 
-                                </div>
+                                           </tr>
+                                           <% } %>
 
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                      <label>Location:</label>
-                                      <input class="form-control" type="text" name="location" />
-                                  </div>
-                                  <div class="form-group">
-                                      <label>Room Image:</label>
-                                      <input type="file" name="image" />
-                                  </div>
+                                         </tbody>
+                                     </table>
+                                 </div>
 
+                             </div>
+                         </div>
+                         <!--End Advanced Tables -->
+                     </div>
+                 </div>
 
-                                </div>
-
-
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-offset-4 col-lg-6">
-                              <input class="btn btn-success" type="submit" value="Save">
-                              <input class="btn btn-primary" type="submit" value="Reset">
-                            </div>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-                     <!-- End Form Elements -->
-                </div>
-            </div>
-
-    </div>
              <!-- /. PAGE INNER  -->
             </div>
          <!-- /. PAGE WRAPPER  -->

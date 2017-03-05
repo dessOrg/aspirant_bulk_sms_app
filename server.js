@@ -36,7 +36,7 @@ app.use('/admin/signup', express.static(__dirname + '/assets/'));
 app.use('/admin/', express.static(__dirname + '/assets/'));
 app.use('/aspirant/', express.static(__dirname + '/assets/'));
 app.use('/profile/', express.static(__dirname + '/assets/'));
-
+app.use('/view/users/', express.static(__dirname + '/assets/'));
 
 //use ejs-localsfor ejs template
 app.engine('ejs', engine);

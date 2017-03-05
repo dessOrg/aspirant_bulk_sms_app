@@ -153,6 +153,30 @@ module.exports = function(app) {
 
     })
 
+    app.get('/view/users/:id', function(req, res){
+      Log.find({user:req.params.id}, function(err, logs){
+        if(err) return err;
+
+        res.render('admin/form.ejs', {logs:logs});
+      })
+    })
+
+    app.get('/delete/:id', function(req, res){
+
+      User.find({id:req.params.id}, function(err, user) {
+     if (err) throw err;
+     // delete sms
+     var user = new User();
+     user._id = req.params.id;
+     user.remove(function(err) {
+    if (err) throw err;
+     req.session.oldUrl = req.url;
+     req.flash('success_msg', 'User removed succesfully.' );
+     res.redirect('/admin/table');
+    });
+    });
+    })
+
     app.post('/token/confirm/:order_id/:user_id', function(req,res){
 
       var amount = req.body.amount;
