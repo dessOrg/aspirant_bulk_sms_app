@@ -136,7 +136,7 @@
                                                 <% for(i=0; i<aspirants.length; i++) { %>
                                                   <tr class="">
                                                       <td><%= i+1 %></td>
-                                                      <td><%= aspirants[i].firstname %></td>
+                                                      <td><a href="/profile/<%=aspirants[i].id %>"><%= aspirants[i].firstname %></a></td>
                                                       <td><%= aspirants[i].lastname %></td>
                                                       <td><%= aspirants[i].username %></td>
                                                       <td><%= aspirants[i].post %></td>

@@ -2,6 +2,8 @@ var User = require('../models/user');
 var Log = require('../models/logs');
 var Order = require('../models/orders');
 var Balance = require('../models/tokens');
+var Bulk = require('../models/sms');
+
 
 module.exports = function(app) {
 
@@ -157,7 +159,13 @@ module.exports = function(app) {
       Log.find({user:req.params.id}, function(err, logs){
         if(err) return err;
 
-        res.render('admin/form.ejs', {logs:logs});
+        Bulk.find({user:req.user}, function(err, bulks){
+          if(err) return err;
+
+          res.render('admin/form.ejs', {logs:logs, bulks:bulks, user_id:req.params.id});
+        })
+
+
       })
     })
 

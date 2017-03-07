@@ -82,7 +82,7 @@ module.exports = function(app) {
             Order.find({user:req.user, status:"pending"}, function(err, pending){
               if(err) return err;
 
-              console.log(pending)
+              //console.log(pending)
               var pending = pending.length;
             Log.find({user:req.user}, function(err, messages){
               if(err) return err;

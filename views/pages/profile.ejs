@@ -102,7 +102,11 @@
                      <% }else{ %>
                      <img src="assets/img/images.png" class="user-image img-responsive" style="height:180px; width : 200px"/>
                      <%}%>
+                     <% if(aspirant[i].party) { %>
                      <div>Party<strong>&nbsp;&nbsp;<%= aspirant[i].party %></strong></div>
+                     <% }else{ %>
+                       <div>Party<strong>&nbsp;&nbsp;Not Updated</strong></div>
+                       <%}%>
                    </div>
 
               </div><br>
@@ -117,8 +121,11 @@
                        <div class="panel-body jumbotron" style="background-color:#206020">
 
                     <div class="" >
+                      <% if(aspirant[i].bio) { %>
                      <p><%= aspirant[i].bio %></p>
-
+                        <% }else{ %>
+                        <p><%= aspirant[i].firstname %>&nbsp;&nbsp; currently is not updated</p>
+                        <%}%>
                     </div>
                  </div>
                </div>
@@ -133,6 +140,8 @@
                      <% for(y=0; y<manifestos.length; y++) { %>
                     <div ><%= y+1 %>.&nbsp;&nbsp;<%= manifestos[y].title %></div>
                      <% } %>
+                     <% }else{ %>
+                       <h3>Manifesto to unveil soon</h3>
                       <% } %>
                  </div>
                </div>
@@ -146,7 +155,7 @@
               <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
                 <div class="panel " style="background-color:#206020">
                   <div class="panel-heading">
-                   Add Your Contacts And I will get back to you.
+                   Do you wish to be part of <%= aspirant[i].firstname %>'s Campaign? Add your contacts here .
                   </div>
                   <form id="contact-form" method="POST" action="/contact/new/<%= aspirant[i].id %>">
 

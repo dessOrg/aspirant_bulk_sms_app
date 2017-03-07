@@ -22,7 +22,7 @@ module.exports = function(app) {
 
   app.get('/register', function(req, res){
 
-    res.render('pages/register.ejs', {message:null});
+    res.render('pages/register.ejs', {messages:null});
   })
 
   app.post('/signup', function(req, res){
@@ -60,7 +60,7 @@ module.exports = function(app) {
         var err = errors.msg;
         var utaken = errors;
 
-          res.render('pages/register.ejs', {error : null,message: utaken});
+          res.render('pages/register.ejs', {error : null,messages: utaken});
 
       }else {
 
@@ -71,7 +71,7 @@ module.exports = function(app) {
           var msg = "";
           var utaken = "Mobile No exists in our system."
 
-            res.render('pages/register.ejs', {error : null,message: utaken});
+            res.render('pages/register.ejs', {error : null,messages: utaken});
           }else{
 
               console.log('You have no register errors');
@@ -95,30 +95,29 @@ module.exports = function(app) {
 
               req.login(user, function(err){
                     if(err) return err;
-                    console.log(req.user);
-
-                    var phone = '';
-                    for(i=0; i<user.length; i++){
-                      phone = user[i].phoneno;
-
-                    }
-
-                    var tokens = 5;
-                    var balance = new Balance();
-                    balance.tokens = tokens;
-                    balance.phoneno = phone;
-                    balance.user = req.user;
-
-                    balance.save(function(err, token){
-                      if(err) return err;
+                    console.log('check user');
+                    console.log(user.phoneno);
+                    var p = user.phoneno;
+                    var message = "You have succesfully created account at aspirant254. Proceed to update your profile and add your supporter's contacts.";
 
 
-                    res.redirect(req.session.returnTo || '/use')
-                    delete req.session.returnTo;
-                    })
-                    
 
-                  });
+                  var tokens = 5;
+                  var balance = new Balance();
+                  balance.tokens = tokens;
+                  balance.phoneno = user.phoneno;
+                  balance.user = req.user;
+
+                  balance.save(function(err, token){
+                    if(err) return err;
+
+                      res.redirect(req.session.returnTo || '/use')
+                      delete req.session.returnTo;
+
+                  })
+
+
+                });
             });
 
           console.log(newUser)
@@ -127,6 +126,7 @@ module.exports = function(app) {
     }
 
   });
+
 
   app.post('/image/update', upload.single('image'), function(req, res){
 

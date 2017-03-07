@@ -10,11 +10,12 @@
       <div id="page-wrapper" >
           <div id="page-inner">
               <div class="row">
-                  <div class="col-md-6">
-                   <h2>Welcome <%= user.firstname %> <%= user.lastname %> </h2>
+                  <div class="col-md-4">
+                   <h2>Welcome <%= user.firstname %> </h2>
                       <h5>Love to see you back. </h5>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-6">
+                    <h3 style="color : blue">For custom plan : 1 token cost KES 1.50</h3>
                     <% if (success_msg){ %>
                       <div data-alert class="alert-box alert success radius" style="color : green">
                         <%= success_msg %>
@@ -23,7 +24,8 @@
                       <div data-alert class="alert-box warning radius" style="color : red">
                         <%= error_msg %>
                       </div>
-                    <% } %>
+
+                      <% } %>
 
                   </div>
                   <div class="col-md-2">

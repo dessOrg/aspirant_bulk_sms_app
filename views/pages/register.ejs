@@ -32,14 +32,14 @@
                     <h2 class="sectionTitle">Sign Up Here</h2>
                 </div>
             </div>
-            <% if (message) { %>
+            <% if (messages) { %>
               <div class="row">
                  <!-- /contact info -->
                  <div class="col-md-3 col-sm-12 col-xs-3"></div>
                  <div class="col-md-6 col-sm-12 col-xs-6">
-                   <% for(i=0; i<message.length; i++){ %>
+                   <% for(i=0; i<messages.length; i++){ %>
                    <div data-alert class="alert-box warning radius">
-                     <%= message[i].msg %>
+                     <%= messages[i].msg %>
                      <a href="#" class="close">&times;</a>
                    </div>
                    <% } %>

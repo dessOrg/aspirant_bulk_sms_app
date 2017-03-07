@@ -36,6 +36,23 @@ module.exports = function(app){
 
  })
 
+ app.get('/delete/contact/:id', function(req, res){
+
+   Contact.find({id:req.params.id}, function(err, contact) {
+  if (err) throw err;
+  // delete sms
+  var contact = new Contact();
+  contact._id = req.params.id;
+  contact.remove(function(err) {
+ if (err) throw err;
+  req.session.oldUrl = req.url;
+  req.flash('success_msg', 'Contact removed succesfully.' );
+  res.redirect('/table');
+ });
+ });
+
+ })
+
  app.post('/contact/new/:id', function(req, res){
    var user = req.params.id;
    var firstname = req.body.firstname;

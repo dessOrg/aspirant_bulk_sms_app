@@ -15,7 +15,7 @@
                           <div class="panel-heading">
                             <div class="row">
                                 <div class="col-md-4">
-                                  <h2>Campaign Portal</h2>
+                                  <h2>Contacts Portal</h2>
                                 </div>
                                 <div class="col-md-4">
                                   <% if (success_msg){ %>
@@ -70,6 +70,7 @@
                                                                <td><%= contacts[i].firstname %></td>
                                                                <td><%= contacts[i].lastname %></td>
                                                                <td><%= contacts[i].phoneno %></td>
+                                                               <td><a href="/delete/contact/<%= contacts[i].id %>" class="btn btn-danger" type="button" ><span>REMOVE</span></a></td>
                                                            </tr>
                                                           <% } %>
 

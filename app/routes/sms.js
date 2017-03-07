@@ -2,7 +2,7 @@ var Bulk = require('../models/sms');
 var Contact = require('../models/contacts');
 var Log = require('../models/logs');
 var Balance = require('../models/tokens');
-
+var User = require('../models/user');
 
 // We need this to build our post string
 var querystring = require('querystring');
@@ -113,199 +113,400 @@ if (err) throw err;
           if(bal<1){
             req.flash('success_msg', "You have insufficient Tokens");
             res.redirect('/text');
-          }else if(contacts.length>bal){
+          }else if(message.length<161){
 
-            for(i=0; i<bal; i++){
+            if(contacts.length>bal){
+
+              for(i=0; i<bal; i++){
 
 
-                 // Define the recipient numbers in a comma separated string
-                 // Numbers should be in international format as shown
-                 var to      = contacts[i].phoneno;
+                   // Define the recipient numbers in a comma separated string
+                   // Numbers should be in international format as shown
+                   var to      = contacts[i].phoneno;
 
-                 // And of course we want our recipients to know what we really do
-                 //message = msg;
+                   // And of course we want our recipients to know what we really do
+                   //message = msg;
 
-                 // Build the post string from an object
+                   // Build the post string from an object
 
-                 var post_data = querystring.stringify({
-                     'username' : username,
-                     'to'       : to,
-                     'message'  : message
-                 });
+                   var post_data = querystring.stringify({
+                       'username' : username,
+                       'to'       : to,
+                       'message'  : message
+                   });
 
-                 var post_options = {
-                     host   : 'api.africastalking.com',
-                     path   : '/version1/messaging',
-                     method : 'POST',
+                   var post_options = {
+                       host   : 'api.africastalking.com',
+                       path   : '/version1/messaging',
+                       method : 'POST',
 
-                     rejectUnauthorized : false,
-                     requestCert        : true,
-                     agent              : false,
+                       rejectUnauthorized : false,
+                       requestCert        : true,
+                       agent              : false,
 
-                     headers: {
-                         'Content-Type' : 'application/x-www-form-urlencoded',
-                         'Content-Length': post_data.length,
-                         'Accept': 'application/json',
-                         'apikey': apikey
-                     }
-                 };
+                       headers: {
+                           'Content-Type' : 'application/x-www-form-urlencoded',
+                           'Content-Length': post_data.length,
+                           'Accept': 'application/json',
+                           'apikey': apikey
+                       }
+                   };
 
-                 var post_req = https.request(post_options, function(res) {
-                     res.setEncoding('utf8');
-                     res.on('data', function (chunk) {
-                         var jsObject   = JSON.parse(chunk);
-                         var recipients = jsObject.SMSMessageData.Recipients;
-                         var log = []
-                         if ( recipients.length > 0 ) {
-                             for (var i = 0; i < recipients.length; ++i ) {
-                                 var str  = 'number=' + recipients[i].number;
-                                 str     += ';cost='   + recipients[i].cost;
-                                 str     += ';status=' + recipients[i].status; // status is either "Success" or "error message"
+                   var post_req = https.request(post_options, function(res) {
+                       res.setEncoding('utf8');
+                       res.on('data', function (chunk) {
+                           var jsObject   = JSON.parse(chunk);
+                           var recipients = jsObject.SMSMessageData.Recipients;
+                           var log = []
+                           if ( recipients.length > 0 ) {
+                               for (var i = 0; i < recipients.length; ++i ) {
+                                   var str  = 'number=' + recipients[i].number;
+                                   str     += ';cost='   + recipients[i].cost;
+                                   str     += ';status=' + recipients[i].status; // status is either "Success" or "error message"
 
-                                 var number = recipients[i].number;
-                                 var cost = 1.5000;
-                                 var status = recipients[i].status;
-                                 var count = i+1;
-                                 }
+                                   var number = recipients[i].number;
+                                   var cost = 1.5000;
+                                   var status = recipients[i].status;
+                                   var count = i+1;
+                                   }
 
-                                 var log = new Log();
-                                 log.date = Date();
-                                 log.sms = message;
-                                 log.cost = cost;
-                                 log.number = number;
-                                 log.status = status;
-                                 log.user = req.user;
-                                 log.save(function(err, log){
-                                   if(err) return err;
-                                    //console.log(log);
+                                   var log = new Log();
+                                   log.date = Date();
+                                   log.sms = message;
+                                   log.cost = cost;
+                                   log.number = number;
+                                   log.status = status;
+                                   log.user = req.user;
+                                   log.save(function(err, log){
+                                     if(err) return err;
+                                      //console.log(log);
 
-                                   })
-
-                                 if(status = "Success"){
-
-                                   var b = 0;
-                                   console.log(b);
-                                   var balance = new Balance();
-                                   balance._id = bal_id;
-                                   balance.update({tokens:b}, function(err, token){
-                                   if(err) return err;
-                                   console.log(token);
                                      })
 
-                               }
+                                   if(status = "Success"){
 
-                             } else {
-                                  var error = 'Error while sending: ' + jsObject.SMSMessageData.Message;
-                                 console.log(error);
-                                 req.flash('error_msg', error);
-                         }
+                                     var b = 0;
+                                     console.log(b);
+                                     var balance = new Balance();
+                                     balance._id = bal_id;
+                                     balance.update({tokens:b}, function(err, token){
+                                     if(err) return err;
+                                     console.log(token);
+                                       })
 
-
-                     });
-                 });
-
-                 // Add post parameters to the http request
-                 post_req.write(post_data);
-
-                 post_req.end();
-                   }
-                   res.redirect('/chart')
-          }else {
-            for(i=0; i<contacts.length; i++){
-
-
-                 // Define the recipient numbers in a comma separated string
-                 // Numbers should be in international format as shown
-                 var to      = contacts[i].phoneno;
-
-                 // And of course we want our recipients to know what we really do
-                 //message = msg;
-
-                 // Build the post string from an object
-
-                 var post_data = querystring.stringify({
-                     'username' : username,
-                     'to'       : to,
-                     'message'  : message
-                 });
-
-                 var post_options = {
-                     host   : 'api.africastalking.com',
-                     path   : '/version1/messaging',
-                     method : 'POST',
-
-                     rejectUnauthorized : false,
-                     requestCert        : true,
-                     agent              : false,
-
-                     headers: {
-                         'Content-Type' : 'application/x-www-form-urlencoded',
-                         'Content-Length': post_data.length,
-                         'Accept': 'application/json',
-                         'apikey': apikey
-                     }
-                 };
-
-                 var post_req = https.request(post_options, function(res) {
-                     res.setEncoding('utf8');
-                     res.on('data', function (chunk) {
-                         var jsObject   = JSON.parse(chunk);
-                         var recipients = jsObject.SMSMessageData.Recipients;
-                         var log = []
-                         if ( recipients.length > 0 ) {
-                             for (var i = 0; i < recipients.length; ++i ) {
-                                 var str  = 'number=' + recipients[i].number;
-                                 str     += ';cost='   + recipients[i].cost;
-                                 str     += ';status=' + recipients[i].status; // status is either "Success" or "error message"
-
-                                 var number = recipients[i].number;
-                                 var cost = 1.5000;
-                                 var status = recipients[i].status;
-                                 var count = i+1;
                                  }
 
-                                 var log = new Log();
-                                 log.date = Date();
-                                 log.sms = message;
-                                 log.cost = cost;
-                                 log.number = number;
-                                 log.status = status;
-                                 log.user = req.user;
-                                 log.save(function(err, log){
-                                   if(err) return err;
-                                    //console.log(log);
+                               } else {
+                                    var error = 'Error while sending: ' + jsObject.SMSMessageData.Message;
+                                   console.log(error);
+                                   req.flash('error_msg', error);
+                           }
 
-                                   })
 
-                                 if(status = "Success"){
+                       });
+                   });
 
-                                   var b = bal-contacts.length;
-                                   console.log(b);
-                                   var balance = new Balance();
-                                   balance._id = bal_id;
-                                   balance.update({tokens:b}, function(err, token){
-                                   if(err) return err;
-                                   console.log(token);
+                   // Add post parameters to the http request
+                   post_req.write(post_data);
+
+                   post_req.end();
+                     }
+                     res.redirect('/chart')
+            }else {
+              for(i=0; i<contacts.length; i++){
+
+
+                   // Define the recipient numbers in a comma separated string
+                   // Numbers should be in international format as shown
+                   var to      = contacts[i].phoneno;
+
+                   // And of course we want our recipients to know what we really do
+                   //message = msg;
+
+                   // Build the post string from an object
+
+                   var post_data = querystring.stringify({
+                       'username' : username,
+                       'to'       : to,
+                       'message'  : message
+                   });
+
+                   var post_options = {
+                       host   : 'api.africastalking.com',
+                       path   : '/version1/messaging',
+                       method : 'POST',
+
+                       rejectUnauthorized : false,
+                       requestCert        : true,
+                       agent              : false,
+
+                       headers: {
+                           'Content-Type' : 'application/x-www-form-urlencoded',
+                           'Content-Length': post_data.length,
+                           'Accept': 'application/json',
+                           'apikey': apikey
+                       }
+                   };
+
+                   var post_req = https.request(post_options, function(res) {
+                       res.setEncoding('utf8');
+                       res.on('data', function (chunk) {
+                           var jsObject   = JSON.parse(chunk);
+                           var recipients = jsObject.SMSMessageData.Recipients;
+                           var log = []
+                           if ( recipients.length > 0 ) {
+                               for (var i = 0; i < recipients.length; ++i ) {
+                                   var str  = 'number=' + recipients[i].number;
+                                   str     += ';cost='   + recipients[i].cost;
+                                   str     += ';status=' + recipients[i].status; // status is either "Success" or "error message"
+
+                                   var number = recipients[i].number;
+                                   var cost = 1.5000;
+                                   var status = recipients[i].status;
+                                   var count = i+1;
+                                   }
+
+                                   var log = new Log();
+                                   log.date = Date();
+                                   log.sms = message;
+                                   log.cost = cost;
+                                   log.number = number;
+                                   log.status = status;
+                                   log.user = req.user;
+                                   log.save(function(err, log){
+                                     if(err) return err;
+                                      //console.log(log);
+
                                      })
 
-                               }
+                                   if(status = "Success"){
 
-                             } else {
-                                  var error = 'Error while sending: ' + jsObject.SMSMessageData.Message;
-                                 console.log(error);
-                                 req.flash('error_msg', error);
-                         }
+                                     var b = bal-contacts.length;
+                                     console.log(b);
+                                     var balance = new Balance();
+                                     balance._id = bal_id;
+                                     balance.update({tokens:b}, function(err, token){
+                                     if(err) return err;
+                                     console.log(token);
+                                       })
+
+                                 }
+
+                               } else {
+                                    var error = 'Error while sending: ' + jsObject.SMSMessageData.Message;
+                                   console.log(error);
+                                   req.flash('error_msg', error);
+                           }
 
 
-                     });
-                 });
+                       });
+                   });
 
-                 // Add post parameters to the http request
-                 post_req.write(post_data);
+                   // Add post parameters to the http request
+                   post_req.write(post_data);
 
-                 post_req.end();
-                   }
-                   res.redirect('/chart')
+                   post_req.end();
+                     }
+                     res.redirect('/chart')
+            }
+            //HERE
+
+          }else if(message.length>160){
+            var b = bal/2;
+            if(contacts.length>b){
+
+              for(i=0; i<b; i++){
+
+
+                   // Define the recipient numbers in a comma separated string
+                   // Numbers should be in international format as shown
+                   var to      = contacts[i].phoneno;
+
+                   // And of course we want our recipients to know what we really do
+                   //message = msg;
+
+                   // Build the post string from an object
+
+                   var post_data = querystring.stringify({
+                       'username' : username,
+                       'to'       : to,
+                       'message'  : message
+                   });
+
+                   var post_options = {
+                       host   : 'api.africastalking.com',
+                       path   : '/version1/messaging',
+                       method : 'POST',
+
+                       rejectUnauthorized : false,
+                       requestCert        : true,
+                       agent              : false,
+
+                       headers: {
+                           'Content-Type' : 'application/x-www-form-urlencoded',
+                           'Content-Length': post_data.length,
+                           'Accept': 'application/json',
+                           'apikey': apikey
+                       }
+                   };
+
+                   var post_req = https.request(post_options, function(res) {
+                       res.setEncoding('utf8');
+                       res.on('data', function (chunk) {
+                           var jsObject   = JSON.parse(chunk);
+                           var recipients = jsObject.SMSMessageData.Recipients;
+                           var log = []
+                           if ( recipients.length > 0 ) {
+                               for (var i = 0; i < recipients.length; ++i ) {
+                                   var str  = 'number=' + recipients[i].number;
+                                   str     += ';cost='   + recipients[i].cost;
+                                   str     += ';status=' + recipients[i].status; // status is either "Success" or "error message"
+
+                                   var number = recipients[i].number;
+                                   var cost = 3.0000;
+                                   var status = recipients[i].status;
+                                   var count = i+1;
+                                   }
+
+                                   var log = new Log();
+                                   log.date = Date();
+                                   log.sms = message;
+                                   log.cost = cost;
+                                   log.number = number;
+                                   log.status = status;
+                                   log.user = req.user;
+                                   log.save(function(err, log){
+                                     if(err) return err;
+                                      //console.log(log);
+
+                                     })
+
+                                   if(status = "Success"){
+
+                                     var tokn = 0;
+                                     console.log(tokn);
+                                     var balance = new Balance();
+                                     balance._id = bal_id;
+                                     balance.update({tokens:tokn}, function(err, token){
+                                     if(err) return err;
+                                     console.log(token);
+                                       })
+
+                                 }
+
+                               } else {
+                                    var error = 'Error while sending: ' + jsObject.SMSMessageData.Message;
+                                   console.log(error);
+                                   req.flash('error_msg', error);
+                           }
+
+
+                       });
+                   });
+
+                   // Add post parameters to the http request
+                   post_req.write(post_data);
+
+                   post_req.end();
+                     }
+                     res.redirect('/chart')
+            }else {
+              for(i=0; i<contacts.length; i++){
+
+
+                   // Define the recipient numbers in a comma separated string
+                   // Numbers should be in international format as shown
+                   var to      = contacts[i].phoneno;
+
+                   // And of course we want our recipients to know what we really do
+                   //message = msg;
+
+                   // Build the post string from an object
+
+                   var post_data = querystring.stringify({
+                       'username' : username,
+                       'to'       : to,
+                       'message'  : message
+                   });
+
+                   var post_options = {
+                       host   : 'api.africastalking.com',
+                       path   : '/version1/messaging',
+                       method : 'POST',
+
+                       rejectUnauthorized : false,
+                       requestCert        : true,
+                       agent              : false,
+
+                       headers: {
+                           'Content-Type' : 'application/x-www-form-urlencoded',
+                           'Content-Length': post_data.length,
+                           'Accept': 'application/json',
+                           'apikey': apikey
+                       }
+                   };
+
+                   var post_req = https.request(post_options, function(res) {
+                       res.setEncoding('utf8');
+                       res.on('data', function (chunk) {
+                           var jsObject   = JSON.parse(chunk);
+                           var recipients = jsObject.SMSMessageData.Recipients;
+                           var log = []
+                           if ( recipients.length > 0 ) {
+                               for (var i = 0; i < recipients.length; ++i ) {
+                                   var str  = 'number=' + recipients[i].number;
+                                   str     += ';cost='   + recipients[i].cost;
+                                   str     += ';status=' + recipients[i].status; // status is either "Success" or "error message"
+
+                                   var number = recipients[i].number;
+                                   var cost = 3.0000;
+                                   var status = recipients[i].status;
+                                   var count = i+1;
+                                   }
+
+                                   var log = new Log();
+                                   log.date = Date();
+                                   log.sms = message;
+                                   log.cost = cost;
+                                   log.number = number;
+                                   log.status = status;
+                                   log.user = req.user;
+                                   log.save(function(err, log){
+                                     if(err) return err;
+                                      //console.log(log);
+
+                                     })
+
+                                   if(status = "Success"){
+
+                                     var tokn = b-contacts.length;
+                                     console.log(tokn);
+                                     var balance = new Balance();
+                                     balance._id = bal_id;
+                                     balance.update({tokens:tokn}, function(err, token){
+                                     if(err) return err;
+                                     console.log(token);
+                                       })
+
+                                 }
+
+                               } else {
+                                    var error = 'Error while sending: ' + jsObject.SMSMessageData.Message;
+                                   console.log(error);
+                                   req.flash('error_msg', error);
+                           }
+
+
+                       });
+                   });
+
+                   // Add post parameters to the http request
+                   post_req.write(post_data);
+
+                   post_req.end();
+                     }
+                     res.redirect('/chart')
+            }
           }
         })
 
@@ -323,8 +524,116 @@ if (err) throw err;
    })
  })
 
+app.get('/send/:user_id/:bulk_id', function(req, res){
+
+  var user_id = req.params.user_id;
+  var bulk_id = req.params.bulk_id;
+  Bulk.find({_id:bulk_id}, function(err, bulk){
+    if(err) return err;
+
+    var message = '';
+    for(i=0; i<bulk.length; i++){
+      message = bulk[i].sms;
+    }
+    console.log(message);
+    User.find({_id:user_id}, function(err, user){
+      if(err) return err;
+
+      console.log(user);
+      var phone ='';
+      for(y=0; y<user.length; y++){
+
+        // Define the recipient numbers in a comma separated string
+        // Numbers should be in international format as shown
+        var to      = user[y].phoneno;
+        console.log(to);
+        console.log(message);
+
+        // And of course we want our recipients to know what we really do
+        //message = msg;
+
+        // Build the post string from an object
+
+        var post_data = querystring.stringify({
+            'username' : username,
+            'to'       : to,
+            'message'  : message
+        });
+
+        var post_options = {
+            host   : 'api.africastalking.com',
+            path   : '/version1/messaging',
+            method : 'POST',
+
+            rejectUnauthorized : false,
+            requestCert        : true,
+            agent              : false,
+
+            headers: {
+                'Content-Type' : 'application/x-www-form-urlencoded',
+                'Content-Length': post_data.length,
+                'Accept': 'application/json',
+                'apikey': apikey
+            }
+        };
+
+        var post_req = https.request(post_options, function(res) {
+            res.setEncoding('utf8');
+            res.on('data', function (chunk) {
+                var jsObject   = JSON.parse(chunk);
+                var recipients = jsObject.SMSMessageData.Recipients;
+                var log = []
+                if ( recipients.length > 0 ) {
+                    for (var i = 0; i < recipients.length; ++i ) {
+                        var str  = 'number=' + recipients[i].number;
+                        str     += ';cost='   + recipients[i].cost;
+                        str     += ';status=' + recipients[i].status; // status is either "Success" or "error message"
+
+                        var number = recipients[i].number;
+                        var cost = 3.0000;
+                        var status = recipients[i].status;
+                        var count = i+1;
+                        }
+
+                        var log = new Log();
+                        log.date = Date();
+                        log.sms = message;
+                        log.cost = cost;
+                        log.number = number;
+                        log.status = status;
+                        log.user = req.user;
+                        log.save(function(err, log){
+                          if(err) return err;
+                           //console.log(log);
+
+                          })
+
+
+                    } else {
+                         var error = 'Error while sending: ' + jsObject.SMSMessageData.Message;
+                        console.log(error);
+                        req.flash('error_msg', error);
+                }
+
+
+            });
+        });
+
+        // Add post parameters to the http request
+        post_req.write(post_data);
+
+        post_req.end();
+          }
+          res.redirect('/admin/table')
+
+  })
+})
+})
+
 
 }
+
+
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
