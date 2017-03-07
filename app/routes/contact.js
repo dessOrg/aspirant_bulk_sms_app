@@ -36,6 +36,25 @@ module.exports = function(app){
 
  })
 
+ app.post('/contact/update/:id', function(req, res){
+    var firstname = req.body.firstname;
+    var lastname = req.body.lastname;
+    var phoneno = req.body.phoneno;
+    var id = req.params.id;
+
+    var contact = new Contact();
+    contact._id = id;
+    contact.firstname = firstname;
+    contact.lastname = lastname;
+    contact.phoneno = phoneno;
+    contact.update({firstname:firstname,lastname:lastname, phoneno:phoneno}, function(err, contact){
+      if(err) return err;
+
+      req.flash("success_msg", "Contact Successfully updated");
+      res.redirect('/table');
+    })
+ })
+
  app.get('/delete/contact/:id', function(req, res){
 
    Contact.find({id:req.params.id}, function(err, contact) {
