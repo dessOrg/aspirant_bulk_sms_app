@@ -100,8 +100,6 @@ module.exports = function(app) {
                     var p = user.phoneno;
                     var message = "You have succesfully created account at aspirant254. Proceed to update your profile and add your supporter's contacts.";
 
-
-
                   var tokens = 5;
                   var balance = new Balance();
                   balance.tokens = tokens;
